@@ -1,82 +1,82 @@
-import Head from 'next/head'
+import Head from "next/head";
+import { useEffect, useState, useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import Code from "../components/code";
 
 export default function Home() {
+  const [code, setCode] = useState("");
+  const [types, setTypes] = useState(false);
+  const [fileName, setFileName] = useState("");
+  const [originalFile, setOriginalFile] = useState();
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onabort = () => console.log("file reading was aborted");
+      reader.onerror = () => console.log("file reading has failed");
+      reader.onload = async () => {
+        const data = reader.result;
+        setOriginalFile(data);
+        setFileName(file.name);
+        changeCode(data, file.name);
+      };
+      reader.readAsArrayBuffer(file);
+    });
+  }, []);
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    maxFiles: 1,
+    accept: ".gltf",
+  });
+
+  const changeCode = async (data = originalFile, name = fileName) => {
+    const params = types ? `&types=true` : "";
+    const code = await fetch("/api/transform?name=" + name + params, {
+      method: "POST",
+      body: data,
+    }).then((rsp) => rsp.json());
+    setCode(code.code);
+  };
+
+  useEffect(() => {
+    if (originalFile && fileName) {
+      changeCode();
+    }
+  }, [types]);
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+    <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
-        <title>Create Next App</title>
+        <title>GLTF {"->"} React Three Fiber</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="flex flex-col items-center justify-center flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="p-3 font-mono text-lg bg-gray-100 rounded-md">
-            pages/index.js
-          </code>
-        </p>
-
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
+      <main className="flex flex-col items-center justify-center flex-1 px-20 ">
+        {code ? (
+          <Code
+            code={code}
+            types={types}
+            setTypes={() => setTypes((t) => !t)}
+          ></Code>
+        ) : (
+          <div
+            className="h-screen w-screen flex items-center justify-center text-center"
+            {...getRootProps()}
           >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="p-6 mt-6 text-left border w-96 rounded-xl hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+            <input {...getInputProps()} />
+            {isDragActive ? (
+              <p className="text-4xl font-bold text-blue-600">
+                Drop the files here ...
+              </p>
+            ) : (
+              <p className="text-4xl font-bold ">
+                Drag 'n' drop your GLTF file{" "}
+                <span className="text-blue-600">here</span>, or click to it
+              </p>
+            )}
+          </div>
+        )}
       </main>
-
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="h-4 ml-2" />
-        </a>
-      </footer>
     </div>
-  )
+  );
 }
