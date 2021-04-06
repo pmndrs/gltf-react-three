@@ -3,7 +3,7 @@ import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import dynamic from "next/dynamic";
 
-const Code = dynamic(() => import("../components/Code"), {
+const Code = dynamic(() => import("../components/code"), {
   ssr: false,
 });
 

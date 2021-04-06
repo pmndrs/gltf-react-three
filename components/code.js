@@ -1,7 +1,6 @@
 import theme from "prism-react-renderer/themes/nightOwl";
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { useAsset } from "use-asset";
 import { OrbitControls } from "@react-three/drei";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { parse } from "./gltsfx";
