@@ -71,7 +71,7 @@ export default function Home() {
             ) : (
               <p className="text-4xl font-bold ">
                 Drag 'n' drop your GLTF file{" "}
-                <span className="text-blue-600">here</span>, or click to it
+                <span className="text-blue-600">here</span>
               </p>
             )}
           </div>
