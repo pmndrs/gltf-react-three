@@ -8,6 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@babel/runtime": "^7.13.10",
+    "@react-three/drei": "^4.0.3",
+    "@react-three/fiber": "^6.0.8",
     "@tippyjs/react": "^4.2.5",
     "clipboard-copy": "^4.0.1",
     "draco3dgltf": "^1.4.0",
@@ -23,10 +26,12 @@
     "react": "^16.13.1",
     "react-dom": "^17.0.2",
     "react-dropzone": "^11.3.2",
-    "three": "^0.122.0",
+    "react-three-fiber": "^5.3.22",
+    "three": "^0.127.0",
     "use-error-boundary": "^2.0.4"
   },
   "devDependencies": {
+    "@babel/plugin-transform-runtime": "^7.13.10",
     "@tailwindcss/jit": "0.1.18",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.9",
