@@ -15,6 +15,7 @@ const Nav = ({ code, types, setTypes }) => {
       }, 200);
     } catch {}
   };
+
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
@@ -23,31 +24,30 @@ const Nav = ({ code, types, setTypes }) => {
             !copied ? "text-white" : "text-night-green"
           } hover:text-night-green pr-5`}
         >
-          <button className="cursor-pointer" onClick={setTypes}>
-            <div class="flex items-center">
-              <button
-                type="button"
+          <div class="flex items-center">
+            <button
+              onClick={setTypes}
+              type="button"
+              class={`${
+                types ? "bg-night-green" : "bg-gray-200"
+              } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
+              aria-pressed="false"
+              aria-labelledby="ts-types-label"
+            >
+              <span class="sr-only">Typescript Types</span>
+              <span
+                aria-hidden="true"
                 class={`${
-                  types ? "bg-night-green" : "bg-gray-200"
-                } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
-                aria-pressed="false"
-                aria-labelledby="ts-types-label"
-              >
-                <span class="sr-only">Typescript Types</span>
-                <span
-                  aria-hidden="true"
-                  class={`${
-                    types ? "translate-x-5" : "translate-x-0"
-                  } pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
-                ></span>
-              </button>
-              <span class="ml-3" id="ts-types-label">
-                <span class="text-sm font-medium text-white">
-                  Show Typescript Types
-                </span>
+                  types ? "translate-x-5" : "translate-x-0"
+                } pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
+              ></span>
+            </button>
+            <span class="ml-3" id="ts-types-label">
+              <span class="text-sm font-medium text-white">
+                Show Typescript Types
               </span>
-            </div>
-          </button>
+            </span>
+          </div>
         </li>
         <li
           className={`${

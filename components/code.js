@@ -1,13 +1,12 @@
 import theme from "prism-react-renderer/themes/nightOwl";
 import React, { Suspense, useEffect, useState } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import { parse } from "./gltsfx";
 import Nav from "./nav";
 
 const Code = (props) => {
-  const [loading, setLoading] = useState(true);
   const [data, setData] = useState();
 
   useEffect(async () => {
@@ -15,7 +14,6 @@ const Code = (props) => {
       types: props.types,
     });
     setData(a);
-    setLoading(false);
   }, [props.types]);
 
   return data ? (
@@ -52,7 +50,9 @@ const Code = (props) => {
         </Canvas>
       </div>
     </div>
-  ) : null;
+  ) : (
+    <p className="text-4xl font-bold text-blue-600">Loading ...</p>
+  );
 };
 
 export default Code;

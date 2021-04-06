@@ -118,14 +118,14 @@ type GLTFActions = Record<ActionName, THREE.AnimationAction>;\n`;
     result = `<${type} `;
 
     const oldResult = result;
-    console.log(gltf.animations);
+    console.log(gltf.animations, obj.name);
     // Include names when output is uncompressed or morphTargetDictionaries are present
     if (
       obj.name.length &&
       (options.verbose ||
         obj.morphTargetDictionary ||
         (hasAnimations &&
-          gltf.animations.find((clip) => clip.targetNames.includes(obj.name))))
+          gltf.animations.find((clip) => clip.name.includes(obj.name))))
     )
       result += `name="${obj.name}" `;
 
