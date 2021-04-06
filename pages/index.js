@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 
 const Code = dynamic(() => import("../components/code"), {
   ssr: false,
+  loading: () => <p className="text-4xl font-bold">Loading ...</p>,
 });
 
 export default function Home() {

@@ -10,10 +10,10 @@ const Code = (props) => {
   const [data, setData] = useState();
 
   useEffect(async () => {
-    const a = await parse(props.fileName, props.originalFile, {
+    const parsed = await parse(props.fileName, props.originalFile, {
       types: props.types,
     });
-    setData(a);
+    setData(parsed);
   }, [props.types]);
 
   return data ? (
