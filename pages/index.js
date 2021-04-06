@@ -1,13 +1,13 @@
 import Head from "next/head";
-import { useEffect, useState, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import dynamic from "next/dynamic";
 
 const Code = dynamic(() => import("../components/Code"), {
   ssr: false,
 });
+
 export default function Home() {
-  const [code, setCode] = useState("");
   const [types, setTypes] = useState(false);
   const [fileName, setFileName] = useState("");
   const [originalFile, setOriginalFile] = useState();
@@ -21,31 +21,15 @@ export default function Home() {
         const data = reader.result;
         setOriginalFile(data);
         setFileName(file.name);
-        changeCode(data, file.name);
       };
-      reader.readAsArrayBuffer(file);
+      reader.readAsText(file);
     });
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1,
-    accept: ".gltf",
+    accept: ".gltf, .glb",
   });
-
-  const changeCode = async (data = originalFile, name = fileName) => {
-    const params = types ? `&types=true` : "";
-    const code = await fetch("/api/transform?name=" + name + params, {
-      method: "POST",
-      body: data,
-    }).then((rsp) => rsp.json());
-    setCode(code.code);
-  };
-
-  useEffect(() => {
-    if (originalFile && fileName) {
-      changeCode();
-    }
-  }, [types]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
@@ -55,11 +39,11 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center justify-center flex-1 px-20 ">
-        {code ? (
+        {originalFile ? (
           <Code
-            code={code}
             types={types}
             originalFile={originalFile}
+            fileName={fileName}
             setTypes={() => setTypes((t) => !t)}
           ></Code>
         ) : (
