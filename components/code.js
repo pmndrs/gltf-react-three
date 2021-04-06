@@ -1,15 +1,26 @@
 import theme from "prism-react-renderer/themes/nightOwl";
 import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { useGLTF, OrbitControls } from "@react-three/drei";
+import { useAsset } from "use-asset";
+import { OrbitControls } from "@react-three/drei";
 import Highlight, { defaultProps } from "prism-react-renderer";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import Nav from "./nav";
+import parse from "../lib/src/gltfjsx";
 
-function Model({ url, ...props }) {
-  const { scene } = useGLTF(url);
+function Model({ buffer, ...props }) {
+  console.log(buffer);
+  const { scene } = useAsset(
+    (buffer) =>
+      new Promise((res, rej) => new GLTFLoader().parse(buffer, "", res, rej)),
+    [buffer]
+  );
+  console.log(scene);
+
+  // // useGraph builds a collection for all nodes/materials contained in the target
+  // const { nodes, materials } = useGraph(scene)
   return <primitive object={scene} {...props} />;
 }
-
-import Nav from "./nav";
 
 const Code = (props) => {
   return (
@@ -21,7 +32,7 @@ const Code = (props) => {
           <Model
             position-y={-0.5}
             scale={[0.2, 0.2, 0.2]}
-            url="/bust-lo-draco.glb"
+            buffer={props.originalFile}
           />
         </Suspense>
         <OrbitControls autoRotate />

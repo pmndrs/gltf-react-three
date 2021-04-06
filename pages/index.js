@@ -1,8 +1,11 @@
 import Head from "next/head";
 import { useEffect, useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
-import Code from "../components/code";
+import dynamic from "next/dynamic";
 
+const Code = dynamic(() => import("../components/Code"), {
+  ssr: false,
+});
 export default function Home() {
   const [code, setCode] = useState("");
   const [types, setTypes] = useState(false);
@@ -56,6 +59,7 @@ export default function Home() {
           <Code
             code={code}
             types={types}
+            originalFile={originalFile}
             setTypes={() => setTypes((t) => !t)}
           ></Code>
         ) : (

@@ -28,6 +28,7 @@
     "react-dropzone": "^11.3.2",
     "react-three-fiber": "^5.3.22",
     "three": "^0.127.0",
+    "use-asset": "^1.0.4",
     "use-error-boundary": "^2.0.4"
   },
   "devDependencies": {
