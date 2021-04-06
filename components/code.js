@@ -17,7 +17,7 @@ const Code = (props) => {
   }, [props.types]);
 
   return data ? (
-    <div className="h-screen w-screen bg-night-dark">
+    <div className="min-h-screen w-screen bg-night-dark">
       <Nav {...props} code={data.jsx} />
       <div className="grid grid-cols-2">
         <Highlight
@@ -51,7 +51,7 @@ const Code = (props) => {
       </div>
     </div>
   ) : (
-    <p className="text-4xl font-bold text-blue-600">Loading ...</p>
+    <p className="text-4xl font-bold">Loading ...</p>
   );
 };
 

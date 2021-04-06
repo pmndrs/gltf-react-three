@@ -9,12 +9,12 @@ const Code = dynamic(() => import("../components/code"), {
 
 export default function Home() {
   const [types, setTypes] = useState(false);
+
   const [fileName, setFileName] = useState("");
   const [originalFile, setOriginalFile] = useState();
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
       const reader = new FileReader();
-
       reader.onabort = () => console.log("file reading was aborted");
       reader.onerror = () => console.log("file reading has failed");
       reader.onload = async () => {
@@ -25,14 +25,19 @@ export default function Home() {
       reader.readAsText(file);
     });
   }, []);
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    fileRejections,
+  } = useDropzone({
     onDrop,
     maxFiles: 1,
     accept: ".gltf, .glb",
   });
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-night-dark text-white">
       <Head>
         <title>GLTF {"->"} React Three Fiber</title>
         <link rel="icon" href="/favicon.ico" />
@@ -48,10 +53,11 @@ export default function Home() {
           ></Code>
         ) : (
           <div
-            className="h-screen w-screen flex items-center justify-center text-center"
+            className="h-screen w-screen flex flex-col items-center justify-center text-center"
             {...getRootProps()}
           >
             <input {...getInputProps()} />
+
             {isDragActive ? (
               <p className="text-4xl font-bold text-blue-600">
                 Drop the files here ...
@@ -62,6 +68,11 @@ export default function Home() {
                 <span className="text-blue-600">here</span>
               </p>
             )}
+            {fileRejections.length ? (
+              <p className="block text-center text-xl pt-4 text-red-300">
+                Only .gltf or .glb files are accepted
+              </p>
+            ) : null}
           </div>
         )}
       </main>
