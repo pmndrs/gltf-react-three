@@ -5,28 +5,28 @@ import Viewer from './viewer'
 import Code from './code'
 
 const Result = (props) => {
-  const [data, setData] = useState()
+  const [jsx, setJSX] = useState()
+  const [scene, setScene] = useState()
   const [types, setTypes] = useState(false)
   const { fileName, originalFile, ...rest } = props
 
   useEffect(async () => {
-    if (originalFile) {
-      const parsed = await parse(fileName, originalFile, types)
-      setData(parsed)
+    const parsed = await parse(fileName, originalFile, types)
+    setJSX(parsed.jsx)
+    if (!scene) {
+      setScene(parsed.scene)
     }
-  }, [types, originalFile])
+  }, [types])
 
-  if (!data) return <p className="text-4xl font-bold">Loading ...</p>
-  const { jsx, scene } = data
+  if (!jsx && !scene) return <p className="text-4xl font-bold">Loading ...</p>
+
   return (
     <div className="min-h-screen w-screen ">
       <div className="grid grid-cols-5">
-        <Code jsx={jsx} />
+        {jsx && <Code jsx={jsx} />}
         <div className="grid grid-rows-autofill col-span-2">
           <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
-          <section className="h-full w-full">
-            <Viewer scene={scene} />
-          </section>
+          <section className="h-full w-full">{scene && <Viewer scene={scene} />}</section>
         </div>
       </div>
     </div>
