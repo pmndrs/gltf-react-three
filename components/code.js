@@ -1,5 +1,5 @@
-import theme from "prism-react-renderer/themes/nightOwlLight";
-import Highlight, { defaultProps } from "prism-react-renderer";
+import theme from 'prism-react-renderer/themes/nightOwlLight'
+import Highlight, { defaultProps } from 'prism-react-renderer'
 
 const Code = ({ jsx }) => {
   return (
@@ -9,24 +9,23 @@ const Code = ({ jsx }) => {
           className={`${className} whitespace-pre-wrap `}
           style={{
             ...style,
-            padding: "5rem",
+            padding: '5rem',
             paddingTop: 0,
-            maxHeight: "calc(100vh - 110px)",
-            overflow: "scroll",
+            maxHeight: 'calc(100vh - 110px)',
+            overflow: 'scroll',
             fontSize: 14,
-          }}
-        >
+          }}>
           {tokens.map((line, i) => (
-            <div {...getLineProps({ line, key: i })}>
+            <div key={i} {...getLineProps({ line, key: i })}>
               {line.map((token, key) => (
-                <span {...getTokenProps({ token, key })} />
+                <span key={key} {...getTokenProps({ token, key })} />
               ))}
             </div>
           ))}
         </pre>
       )}
     </Highlight>
-  );
-};
+  )
+}
 
-export default Code;
+export default Code
