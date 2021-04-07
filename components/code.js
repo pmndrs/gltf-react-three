@@ -6,13 +6,10 @@ const Code = ({ jsx }) => {
     <Highlight {...defaultProps} theme={theme} code={jsx} language="jsx">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} whitespace-pre-wrap col-span-2`}
+          className={`${className} whitespace-pre-wrap col-span-2 p-20 pt-0 overflow-scroll`}
           style={{
             ...style,
-            padding: '5rem',
-            paddingTop: 0,
             height: 'calc(100vh - 110px)',
-            overflow: 'scroll',
             fontSize: 12,
           }}>
           {tokens.map((line, i) => (

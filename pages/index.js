@@ -50,6 +50,10 @@ export default function Home() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
+        <title>GLTF {'->'} React Three Fiber </title>
+        <meta
+          name="description"
+          content="Easily convert GLTF models into React Three Fiber components to use in your projects"></meta>
       </Head>
 
       <main className="flex flex-col items-center justify-center flex-1 px-20 ">

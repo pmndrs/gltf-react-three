@@ -7,20 +7,21 @@ import Code from './code'
 const Result = (props) => {
   const [data, setData] = useState()
   const [types, setTypes] = useState(false)
+  const { fileName, originalFile, ...rest } = props
 
   useEffect(async () => {
-    const parsed = await parse(props.fileName, props.originalFile, types)
+    const parsed = await parse(fileName, originalFile, types)
     setData(parsed)
   }, [types])
 
   if (!data) return <p className="text-4xl font-bold">Loading ...</p>
-
+  const { jsx, scene } = data
   return (
     <div className="min-h-screen w-screen ">
-      <Nav types={types} setTypes={setTypes} code={data.jsx} {...props} />
+      <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
       <div className="grid grid-cols-3">
-        <Code jsx={data.jsx} />
-        <Viewer scene={data.scene} />
+        <Code jsx={jsx} />
+        <Viewer scene={scene} />
       </div>
     </div>
   )
