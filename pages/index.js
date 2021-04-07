@@ -56,7 +56,7 @@ export default function Home() {
           content="Easily convert GLTF models into React Three Fiber components to use in your projects"></meta>
       </Head>
 
-      <main className="flex flex-col items-center justify-center flex-1 px-20 ">
+      <main className="flex flex-col items-center justify-center flex-1">
         {originalFile ? (
           <Result textOriginalFile={textOriginalFile} originalFile={originalFile} fileName={fileName}></Result>
         ) : (

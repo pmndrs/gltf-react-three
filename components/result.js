@@ -18,9 +18,9 @@ const Result = (props) => {
   const { jsx, scene } = data
   return (
     <div className="min-h-screen w-screen ">
-      <div className="grid grid-cols-3">
+      <div className="grid grid-cols-5">
         <Code jsx={jsx} />
-        <div className="grid grid-rows-autofill">
+        <div className="grid grid-rows-autofill col-span-2">
           <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
           <section className="h-full w-full">
             <Viewer scene={scene} />
