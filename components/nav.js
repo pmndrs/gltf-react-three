@@ -8,7 +8,7 @@ import Toggle from './toggle'
 
 const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
-  const sandboxId = useSandbox({ fileName, textOriginalFile, code })
+  const [sandboxId, error] = useSandbox({ fileName, textOriginalFile, code })
 
   const copyToClipboard = async () => {
     try {
@@ -36,23 +36,33 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
           </Tippy>
         </li>
 
-        <li className={`${sandboxId ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
-          <Tippy content={sandboxId ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
-            {sandboxId ? (
-              <a
-                className="cursor-pointer"
-                rel="noreferrer"
-                href={`https://codesandbox.io/s/${sandboxId}`}
-                target="_blank">
-                <CodesandboxIcon />
-              </a>
-            ) : (
+        {!error ? (
+          <li className={`${sandboxId ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
+            <Tippy content={sandboxId ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
+              {sandboxId ? (
+                <a
+                  className="cursor-pointer"
+                  rel="noreferrer"
+                  href={`https://codesandbox.io/s/${sandboxId}`}
+                  target="_blank">
+                  <CodesandboxIcon />
+                </a>
+              ) : (
+                <button>
+                  <CodesandboxIcon />
+                </button>
+              )}
+            </Tippy>
+          </li>
+        ) : (
+          <li className="text-red-600">
+            <Tippy content={'There was a problem creating your sandbox'}>
               <button>
                 <CodesandboxIcon />
               </button>
-            )}
-          </Tippy>
-        </li>
+            </Tippy>
+          </li>
+        )}
       </ul>
     </nav>
   )
