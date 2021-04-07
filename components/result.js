@@ -11,7 +11,6 @@ const Result = (props) => {
   useEffect(async () => {
     const parsed = await parse(props.fileName, props.originalFile, types);
     setData(parsed);
-    console.log(parsed);
   }, [types]);
 
   if (!data) return <p className="text-4xl font-bold">sdas ...</p>;
