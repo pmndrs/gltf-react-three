@@ -38,7 +38,11 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
         {sandboxId ? (
           <li className={`text-gray-900 hover:text-green-600`}>
             <Tippy content={'Open in Codesandbox'}>
-              <a className="cursor-pointer" href={`https://codesandbox.io/s/${sandboxId}`} target="_blank">
+              <a
+                className="cursor-pointer"
+                rel="noreferrer"
+                href={`https://codesandbox.io/s/${sandboxId}`}
+                target="_blank">
                 <CodesandboxIcon />
               </a>
             </Tippy>

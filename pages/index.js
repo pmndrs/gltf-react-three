@@ -3,9 +3,11 @@ import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import dynamic from 'next/dynamic'
 
+const Loading = () => <p className="text-4xl font-bold">Loading ...</p>
+
 const Result = dynamic(() => import('../components/result'), {
   ssr: false,
-  loading: () => <p className="text-4xl font-bold">Loading ...</p>,
+  loading: Loading,
 })
 
 function arrayBufferToString(buffer, callback) {
@@ -67,7 +69,7 @@ export default function Home() {
               <p className="text-4xl font-bold text-blue-600">Drop the files here ...</p>
             ) : (
               <p className="text-4xl font-bold ">
-                Drag 'n' drop your GLTF file <span className="text-blue-600">here</span>
+                Drag {"'"}n{"'"} drop your GLTF file <span className="text-blue-600">here</span>
               </p>
             )}
             {fileRejections.length ? (

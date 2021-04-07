@@ -1,10 +1,10 @@
 import React from 'react'
 import * as THREE from 'three'
 import { Suspense, useState } from 'react'
-import { Canvas, useThree, useFrame } from '@react-three/fiber'
+import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls, Environment, ContactShadows } from '@react-three/drei'
 
-export const Stage = React.forwardRef(function Center({ children, object, ...props }, ref) {
+export const Stage = React.forwardRef(function Center({ object, ...props }, ref) {
   const camera = useThree((state) => state.camera)
   const outer = React.useRef()
   const inner = React.useRef()
