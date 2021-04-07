@@ -11,7 +11,7 @@ const Code = ({ jsx }) => {
             ...style,
             padding: '5rem',
             paddingTop: 0,
-            maxHeight: 'calc(100vh - 110px)',
+            height: 'calc(100vh - 110px)',
             overflow: 'scroll',
             fontSize: 12,
           }}>

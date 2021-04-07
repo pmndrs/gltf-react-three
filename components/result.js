@@ -17,7 +17,7 @@ const Result = (props) => {
 
   return (
     <div className="min-h-screen w-screen ">
-      <Nav types={types} setTypes={setTypes} code={data.jsx} />
+      <Nav types={types} setTypes={setTypes} code={data.jsx} {...props} />
       <div className="grid grid-cols-2">
         <Code jsx={data.jsx} />
         <Viewer scene={data.scene} />
