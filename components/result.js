@@ -20,9 +20,9 @@ const Result = (props) => {
     <div className="min-h-screen w-screen ">
       <div className="grid grid-cols-3">
         <Code jsx={jsx} />
-        <div className="h-screen">
+        <div className="h-screen w-full">
           <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
-          <section className="h-full">
+          <section className="h-full w-full">
             <Viewer scene={scene} />
           </section>
         </div>
