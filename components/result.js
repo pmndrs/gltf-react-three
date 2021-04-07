@@ -10,9 +10,11 @@ const Result = (props) => {
   const { fileName, originalFile, ...rest } = props
 
   useEffect(async () => {
-    const parsed = await parse(fileName, originalFile, types)
-    setData(parsed)
-  }, [types])
+    if (originalFile) {
+      const parsed = await parse(fileName, originalFile, types)
+      setData(parsed)
+    }
+  }, [types, originalFile])
 
   if (!data) return <p className="text-4xl font-bold">Loading ...</p>
   const { jsx, scene } = data
