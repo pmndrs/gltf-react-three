@@ -16,7 +16,7 @@ const Result = (props) => {
   if (!data) return <p className="text-4xl font-bold">Loading ...</p>;
 
   return (
-    <div className="min-h-screen w-screen bg-night-dark">
+    <div className="min-h-screen w-screen ">
       <Nav types={types} setTypes={setTypes} code={data.jsx} />
       <div className="grid grid-cols-2">
         <Code jsx={data.jsx} />

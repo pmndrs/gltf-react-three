@@ -1,4 +1,4 @@
-import theme from "prism-react-renderer/themes/nightOwl";
+import theme from "prism-react-renderer/themes/nightOwlLight";
 import Highlight, { defaultProps } from "prism-react-renderer";
 
 const Code = ({ jsx }) => {
@@ -13,6 +13,7 @@ const Code = ({ jsx }) => {
             paddingTop: 0,
             maxHeight: "calc(100vh - 110px)",
             overflow: "scroll",
+            fontSize: 14,
           }}
         >
           {tokens.map((line, i) => (
