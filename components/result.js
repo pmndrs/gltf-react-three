@@ -18,10 +18,14 @@ const Result = (props) => {
   const { jsx, scene } = data
   return (
     <div className="min-h-screen w-screen ">
-      <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
       <div className="grid grid-cols-3">
         <Code jsx={jsx} />
-        <Viewer scene={scene} />
+        <div className="h-screen">
+          <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
+          <section className="h-full">
+            <Viewer scene={scene} />
+          </section>
+        </div>
       </div>
     </div>
   )
