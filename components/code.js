@@ -10,6 +10,7 @@ const Code = ({ jsx }) => {
           style={{
             ...style,
             fontSize: 12,
+            backgroundColor: 'white',
           }}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
