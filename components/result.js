@@ -13,7 +13,7 @@ const Result = (props) => {
     setData(parsed);
   }, [types]);
 
-  if (!data) return <p className="text-4xl font-bold">sdas ...</p>;
+  if (!data) return <p className="text-4xl font-bold">Loading ...</p>;
 
   return (
     <div className="min-h-screen w-screen bg-night-dark">

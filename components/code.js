@@ -7,7 +7,13 @@ const Code = ({ jsx }) => {
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
           className={`${className} whitespace-pre-wrap `}
-          style={{ ...style, padding: "5rem", paddingTop: 0 }}
+          style={{
+            ...style,
+            padding: "5rem",
+            paddingTop: 0,
+            maxHeight: "calc(100vh - 110px)",
+            overflow: "scroll",
+          }}
         >
           {tokens.map((line, i) => (
             <div {...getLineProps({ line, key: i })}>

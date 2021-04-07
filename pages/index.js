@@ -21,7 +21,7 @@ export default function Home() {
         setOriginalFile(data);
         setFileName(file.name);
       };
-      reader.readAsText(file);
+      reader.readAsArrayBuffer(file);
     });
   }, []);
   const {
