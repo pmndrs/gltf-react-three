@@ -19,14 +19,10 @@ const Nav = ({ code, types, setTypes }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li
-          className={`${
-            !copied ? "text-white" : "text-night-green"
-          } hover:text-night-green pr-5`}
-        >
+        <li className={`text-white" hover:text-night-green pr-5`}>
           <div class="flex items-center">
             <button
-              onClick={setTypes}
+              onClick={() => setTypes((a) => !a)}
               type="button"
               class={`${
                 types ? "bg-night-green" : "bg-gray-200"
@@ -49,6 +45,7 @@ const Nav = ({ code, types, setTypes }) => {
             </span>
           </div>
         </li>
+
         <li
           className={`${
             !copied ? "text-white" : "text-night-green"

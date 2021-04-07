@@ -3,14 +3,12 @@ import { useState, useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import dynamic from "next/dynamic";
 
-const Code = dynamic(() => import("../components/code"), {
+const Result = dynamic(() => import("../components/result"), {
   ssr: false,
   loading: () => <p className="text-4xl font-bold">Loading ...</p>,
 });
 
 export default function Home() {
-  const [types, setTypes] = useState(false);
-
   const [fileName, setFileName] = useState("");
   const [originalFile, setOriginalFile] = useState();
   const onDrop = useCallback((acceptedFiles) => {
@@ -64,12 +62,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center justify-center flex-1 px-20 ">
         {originalFile ? (
-          <Code
-            types={types}
-            originalFile={originalFile}
-            fileName={fileName}
-            setTypes={() => setTypes((t) => !t)}
-          ></Code>
+          <Result originalFile={originalFile} fileName={fileName}></Result>
         ) : (
           <div
             className="h-screen w-screen flex flex-col items-center justify-center text-center"
