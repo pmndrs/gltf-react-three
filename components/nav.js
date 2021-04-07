@@ -19,13 +19,13 @@ const Nav = ({ code, types, setTypes }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li className={`text-white" hover:text-night-green pr-5`}>
+        <li className={`" hover:text-green-600 pr-5`}>
           <div class="flex items-center">
             <button
               onClick={() => setTypes((a) => !a)}
               type="button"
               class={`${
-                types ? "bg-night-green" : "bg-gray-200"
+                types ? "bg-green-600" : "bg-gray-200"
               } relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`}
               aria-pressed="false"
               aria-labelledby="ts-types-label"
@@ -39,7 +39,7 @@ const Nav = ({ code, types, setTypes }) => {
               ></span>
             </button>
             <span class="ml-3" id="ts-types-label">
-              <span class="text-sm font-medium text-white">
+              <span class="text-sm font-medium text-gray-900">
                 Show Typescript Types
               </span>
             </span>
@@ -48,8 +48,8 @@ const Nav = ({ code, types, setTypes }) => {
 
         <li
           className={`${
-            !copied ? "text-white" : "text-night-green"
-          } hover:text-night-green`}
+            !copied ? "text-gray-900" : "text-green-600"
+          } hover:text-green-600`}
         >
           <Tippy content={copied ? "Copied" : "Copy to Clipboard"}>
             <button className="cursor-pointer" onClick={copyToClipboard}>
