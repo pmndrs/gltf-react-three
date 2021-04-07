@@ -35,9 +35,10 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
             </button>
           </Tippy>
         </li>
-        {sandboxId ? (
-          <li className={`text-gray-900 hover:text-green-600`}>
-            <Tippy content={'Open in Codesandbox'}>
+
+        <li className={`${sandboxId ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
+          <Tippy content={sandboxId ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
+            {sandboxId ? (
               <a
                 className="cursor-pointer"
                 rel="noreferrer"
@@ -45,9 +46,13 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
                 target="_blank">
                 <CodesandboxIcon />
               </a>
-            </Tippy>
-          </li>
-        ) : null}
+            ) : (
+              <button>
+                <CodesandboxIcon />
+              </button>
+            )}
+          </Tippy>
+        </li>
       </ul>
     </nav>
   )
