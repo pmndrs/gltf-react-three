@@ -208,10 +208,10 @@
     "@react-spring/shared" "^9.0.0"
     "@react-spring/types" "^9.0.0"
 
-"@react-three/drei@^4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.0.3.tgz#39b5842e5263ee910b87c40b0d3f092a7df9e26a"
-  integrity sha512-IwWeEI3GeTxa0ncOS9AQ355JGmYPDlzNm0NqrEeptQNZIehNgse0k5AiM4TfnS4TwuO0hO4cAOnC68QkuDrEFw==
+"@react-three/drei@^4.0.4":
+  version "4.0.4"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.0.4.tgz#80e846a511cba4fbffe46a3bc414d18f3079eea5"
+  integrity sha512-xadZazsaFsh/jAAdlzYUnJweJSZSGjltrHFFa1GSv8kS9u1TU3BtgR5bTSkvedBMGHtpvEZKVxwGRM5OD9P5+g==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/web" "^9.0.0-rc.3"
@@ -228,10 +228,10 @@
     utility-types "^3.10.0"
     zustand "^3.0.3"
 
-"@react-three/fiber@^6.0.8":
-  version "6.0.8"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-6.0.8.tgz#09e65c1f7a09395a9f2705734c5a61389ecb1820"
-  integrity sha512-squFicN1nal2uN4YuntYQQsg9yjwJIiY4Xv08crlkwR7wA8idX3dWCXYnExFc9zLZPQTCJ8wCHzLHus4f8lMCg==
+"@react-three/fiber@^6.0.9":
+  version "6.0.9"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-6.0.9.tgz#12fc8315039b2d626bef666a3a22067038eaa174"
+  integrity sha512-n1Fw15teQmJPpF+r6G2/i4amVW5LEHaIFIoO3JXlMGuTfJ0TeXxFYvXj/KULdakINXKLRfrK6zJ6vRWLtODElw==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
