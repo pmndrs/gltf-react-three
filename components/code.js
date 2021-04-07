@@ -13,7 +13,7 @@ const Code = ({ jsx }) => {
             paddingTop: 0,
             maxHeight: 'calc(100vh - 110px)',
             overflow: 'scroll',
-            fontSize: 14,
+            fontSize: 12,
           }}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>
