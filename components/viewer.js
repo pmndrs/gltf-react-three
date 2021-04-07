@@ -62,6 +62,7 @@ export const Stage = React.forwardRef(function Center({ children, object, ...pro
 const Viewer = ({ scene }) => {
   return (
     <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 150], fov: 50 }}>
+      <ambientLight intensity={0.4} />
       <Suspense fallback={null}>
         <Stage object={scene} />
         <Environment preset="city" />
