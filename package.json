@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@react-three/drei": "^4.0.3",
-    "@react-three/fiber": "^6.0.8",
+    "@react-three/drei": "^4.0.4",
+    "@react-three/fiber": "^6.0.9",
     "@tippyjs/react": "^4.2.5",
     "clipboard-copy": "^4.0.1",
     "eslint": "^7.23.0",
