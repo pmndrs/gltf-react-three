@@ -61,7 +61,7 @@ const Viewer = ({ scene }) => {
     <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 150], fov: 50 }}>
       <Suspense fallback={null}>
         <Stage object={scene} />
-        <Environment preset="warehouse" />
+        <Environment preset="city" />
       </Suspense>
       <OrbitControls autoRotate />
     </Canvas>
