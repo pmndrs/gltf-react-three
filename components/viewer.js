@@ -27,7 +27,6 @@ export const Stage = React.forwardRef(function Center({ children, object, ...pro
     box3.getCenter(center)
     box3.getBoundingSphere(sphere)
     setRadius(sphere.radius)
-    console.log(box3)
     outer.current.position.set(-center.x, -center.y + height / 2, -center.z)
   }, [])
 
