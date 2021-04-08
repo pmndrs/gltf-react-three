@@ -11,7 +11,7 @@ export const createZip = async ({ sandboxCode, fileName, textOriginalFile, buffe
     } else {
       zip.file(
         file,
-        isJson(fileName) ? JSON.stringify(sandboxCode.files[file].content, null, 2) : sandboxCode.files[file].content
+        isJson(file) ? JSON.stringify(sandboxCode.files[file].content, null, 2) : sandboxCode.files[file].content
       )
     }
   })
