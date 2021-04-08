@@ -7,7 +7,7 @@ import useSandbox from '../utils/useSandbox'
 import { saveAs } from 'file-saver'
 import { CodesandboxIcon, CopyIcon, DownloadIcon, ShadowIcon, TSIcon } from './icons'
 
-const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile, buffer }) => {
   const [copied, setCopied] = useState(false)
   const [loading, sandboxId, error, sandboxCode] = useSandbox({
     fileName,
@@ -29,7 +29,7 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
 
   const download = async () => {
     const createZip = await import('../utils/createZip').then((mod) => mod.createZip)
-    const blob = await createZip(sandboxCode, fileName, textOriginalFile)
+    const blob = await createZip({ sandboxCode, fileName, textOriginalFile, buffer })
     saveAs(blob, `${fileName.split('.')[0]}.zip`)
   }
 

@@ -1,10 +1,12 @@
 import JSZip from 'jszip'
 
-export const createZip = async (sandboxCode, fileName, textOriginalFile) => {
+export const createZip = async ({ sandboxCode, fileName, textOriginalFile, buffer }) => {
   var zip = new JSZip()
   Object.keys(sandboxCode.files).map((file) => {
     if (file === `public/${fileName}`) {
-      zip.file(`public/${fileName}`, textOriginalFile)
+      zip.file(`public/${fileName}`, fileName.includes('.glb') ? buffer : textOriginalFile, {
+        isBinary: fileName.includes('.glb'),
+      })
     } else {
       zip.file(
         file,
