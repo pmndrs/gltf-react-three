@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Tippy from '@tippyjs/react'
 import copy from 'clipboard-copy'
 import 'tippy.js/dist/tippy.css'
-import useSandbox from '../lib/utils/useSandbox'
+import useSandbox from '../utils/useSandbox'
 import { CodesandboxIcon, CopyIcon, ShadowIcon, TSIcon } from './icons'
 
 const Nav = ({ code, config, setConfig, fileName, textOriginalFile, jsx }) => {
