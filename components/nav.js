@@ -3,11 +3,18 @@ import Tippy from '@tippyjs/react'
 import copy from 'clipboard-copy'
 import 'tippy.js/dist/tippy.css'
 import useSandbox from '../utils/useSandbox'
-import { CodesandboxIcon, CopyIcon, ShadowIcon, TSIcon } from './icons'
+
+import { saveAs } from 'file-saver'
+import { CodesandboxIcon, CopyIcon, DownloadIcon, ShadowIcon, TSIcon } from './icons'
 
 const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
-  const [loading, sandboxId, error] = useSandbox({ fileName, textOriginalFile, code, types: config.types })
+  const [loading, sandboxId, error, sandboxCode] = useSandbox({
+    fileName,
+    textOriginalFile,
+    code,
+    types: config.types,
+  })
 
   const copyToClipboard = async () => {
     try {
@@ -18,6 +25,12 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
       }, 200)
       // eslint-disable-next-line no-empty
     } catch {}
+  }
+
+  const download = async () => {
+    const createZip = await import('../utils/createZip').then((mod) => mod.createZip)
+    const blob = await createZip(sandboxCode, fileName, textOriginalFile)
+    saveAs(blob, `${fileName.split('.')[0]}.zip`)
   }
 
   return (
@@ -72,6 +85,13 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
             </Tippy>
           </li>
         )}
+        <li className={`text-gray-900 hover:text-green-600 pl-5`}>
+          <Tippy content={'Download As Zip'}>
+            <button className="cursor-pointer" onClick={download}>
+              <DownloadIcon />
+            </button>
+          </Tippy>
+        </li>
       </ul>
     </nav>
   )
