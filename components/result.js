@@ -29,7 +29,7 @@ const Result = (props) => {
       <div className="grid grid-cols-5">
         {code && <Code>{code}</Code>}
         <div className="grid grid-rows-autofill col-span-2">
-          <Nav config={config} setConfig={setConfig} code={code} fileName={fileName} {...rest} />
+          <Nav buffer={buffer} config={config} setConfig={setConfig} code={code} fileName={fileName} {...rest} />
           <section className="h-full w-full">{scene && <Viewer scene={scene} />}</section>
         </div>
       </div>
