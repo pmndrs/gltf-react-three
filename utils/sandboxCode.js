@@ -1,4 +1,4 @@
-export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
+export const sandboxCode = ({ fileName, textOriginalFile, code, types, buffer }) => {
   const TSDeps = types
     ? {
         devDependencies: {
@@ -8,7 +8,7 @@ export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
           'react-scripts': '4.0.3',
         },
       }
-    : { 'react-scripts': '4.0.3' }
+    : { devDependencies: { 'react-scripts': '4.0.3' } }
   return {
     files: {
       'public/index.html': {
@@ -74,7 +74,8 @@ export default function Viewer() {
         `,
       },
       [`public/${fileName}`]: {
-        content: fileName.includes('glb') ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
+        content: fileName.includes('glb') ? buffer : textOriginalFile,
+        binary: true,
       },
       [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
       'package.json': {
@@ -88,6 +89,13 @@ export default function Viewer() {
             three: '0.127.0',
           },
           ...TSDeps,
+          scripts: {
+            start: 'react-scripts start',
+            build: 'react-scripts build',
+            test: 'react-scripts test --env=jsdom',
+            eject: 'react-scripts eject',
+          },
+          browserslist: ['>0.2%', 'not dead', 'not ie <= 11', 'not op_mini all'],
         },
       },
     },
