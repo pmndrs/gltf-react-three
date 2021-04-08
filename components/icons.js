@@ -22,17 +22,7 @@ export const TSIcon = () => (
 )
 
 export const ShadowIcon = () => (
-  <svg
-    height="100px"
-    width="100px"
-    fill="currentColor"
-    xmlSpace="preserve"
-    viewBox="0 0 0.323362 0.326665"
-    x="0px"
-    y="0px"
-    fillRule="evenodd"
-    clipRule="evenodd"
-    className="h-6 w-6">
+  <svg height="100px" width="100px" fill="currentColor" viewBox="0 0 0.323362 0.326665" className="h-6 w-6">
     <defs></defs>
     <g>
       <path
