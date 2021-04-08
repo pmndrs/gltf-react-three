@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { GLTFLoader, DRACOLoader } from 'three-stdlib'
-import { parse } from '../lib/gltsfx'
+import parse from '@react-three/gltfjsx'
 import Nav from './nav'
 import Viewer from './viewer'
 import Code from './code'
