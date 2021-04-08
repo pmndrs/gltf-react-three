@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import dynamic from 'next/dynamic'
+import suzanne from '../public/suzanne.gltf'
 
 const Loading = () => <p className="text-4xl font-bold">Loading ...</p>
 
@@ -43,6 +44,14 @@ export default function Home() {
     accept: '.gltf, .glb',
   })
 
+  const useSuzanne = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setBuffer(suzanne)
+    setFileName('suzanne.gltf')
+    setTextOriginalFile(suzanne)
+  }
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
       <Head>
@@ -69,7 +78,10 @@ export default function Home() {
               <p className="text-4xl font-bold text-blue-600">Drop the files here ...</p>
             ) : (
               <p className="text-4xl font-bold ">
-                Drag {"'"}n{"'"} drop your GLTF file <span className="text-blue-600">here</span>
+                Drag {"'"}n{"'"} drop your GLTF file <span className="text-blue-600">here</span> or{' '}
+                <button className="font-bold" onClick={useSuzanne}>
+                  try it with <span className="text-blue-600">Suzanne</span>
+                </button>
               </p>
             )}
             {fileRejections.length ? (
