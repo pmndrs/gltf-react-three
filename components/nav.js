@@ -58,34 +58,36 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
           </Tippy>
         </li>
 
-        {!error ? (
-          <li className={`${!loading ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
-            <Tippy content={!loading ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
-              {!loading ? (
-                <a
-                  className="cursor-pointer"
-                  rel="noreferrer"
-                  href={`https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`}
-                  target="_blank">
-                  <CodesandboxIcon />
-                </a>
-              ) : (
+        {!fileName.includes('.glb') ? (
+          !error ? (
+            <li className={`${!loading ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
+              <Tippy content={!loading ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
+                {!loading ? (
+                  <a
+                    className="cursor-pointer"
+                    rel="noreferrer"
+                    href={`https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`}
+                    target="_blank">
+                    <CodesandboxIcon />
+                  </a>
+                ) : (
+                  <button>
+                    <CodesandboxIcon />
+                  </button>
+                )}
+              </Tippy>
+            </li>
+          ) : (
+            <li className="text-red-600">
+              <Tippy content={'There was a problem creating your sandbox'}>
                 <button>
                   <CodesandboxIcon />
                 </button>
-              )}
-            </Tippy>
-          </li>
-        ) : (
-          <li className="text-red-600">
-            <Tippy content={'There was a problem creating your sandbox'}>
-              <button>
-                <CodesandboxIcon />
-              </button>
-            </Tippy>
-          </li>
-        )}
-        <li className={`text-gray-900 hover:text-green-600 pl-5`}>
+              </Tippy>
+            </li>
+          )
+        ) : null}
+        <li className={`text-gray-900 hover:text-green-600 ${!fileName.includes('.glb') ? 'pl-5' : ''}`}>
           <Tippy content={'Download As Zip'}>
             <button className="cursor-pointer" onClick={download}>
               <DownloadIcon />
