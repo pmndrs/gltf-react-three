@@ -5,9 +5,9 @@ import 'tippy.js/dist/tippy.css'
 import useSandbox from '../utils/useSandbox'
 import { CodesandboxIcon, CopyIcon, ShadowIcon, TSIcon } from './icons'
 
-const Nav = ({ code, config, setConfig, fileName, textOriginalFile, jsx }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
-  const [loading, sandboxId, error] = useSandbox({ fileName, textOriginalFile, code, types: config.types, jsx })
+  const [loading, sandboxId, error] = useSandbox({ fileName, textOriginalFile, code, types: config.types })
 
   const copyToClipboard = async () => {
     try {

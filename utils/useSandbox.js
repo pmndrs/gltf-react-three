@@ -20,7 +20,7 @@ const useSandbox = (props) => {
       .then((data) => setSandboxId(data.sandbox_id))
       .catch(() => setErr(true))
       .finally(() => setLoading(false))
-  }, [props.jsx])
+  }, [props.code])
 
   return [loading, sandboxId, error]
 }
