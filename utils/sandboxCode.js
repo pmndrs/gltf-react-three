@@ -1,7 +1,18 @@
-export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => ({
-  files: {
-    'public/index.html': {
-      content: `<!DOCTYPE html>
+export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
+  const TSDeps = types
+    ? {
+        devDependencies: {
+          '@types/react': '17.0.0',
+          '@types/react-dom': '17.0.0',
+          typescript: '4.1.3',
+          'react-scripts': '4.0.3',
+        },
+      }
+    : { 'react-scripts': '4.0.3' }
+  return {
+    files: {
+      'public/index.html': {
+        content: `<!DOCTYPE html>
         <html lang="en">
         <head>
           <meta charset="utf-8">
@@ -24,18 +35,18 @@ export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => ({
           <div id="root"></div>
         </body>
         </html>`,
-    },
-    'src/index.js': {
-      content: `
+      },
+      [`src/index.${types ? 'tsx' : 'js'}`]: {
+        content: `
 import React from 'react'
 import ReactDOM from "react-dom"
 import './style.css'
 import App from "./App"
 
 ReactDOM.render(<App />, document.getElementById("root"))`,
-    },
-    'src/App.js': {
-      content: `
+      },
+      [`src/App.${types ? 'tsx' : 'js'}`]: {
+        content: `
 import * as THREE from 'three'
 import React, { Suspense, useState } from 'react'
 import { Canvas, useThree } from '@react-three/fiber'
@@ -54,31 +65,32 @@ export default function Viewer() {
     </Canvas>
   )
 }`,
-    },
-    'src/style.css': {
-      content: `body,
+      },
+      'src/style.css': {
+        content: `body,
         #root {
           height: 100vh;
           width: 100vw;
         }
         `,
-    },
-    [`public/${fileName}`]: {
-      content: textOriginalFile,
-      isBinary: fileName.includes('glb'),
-    },
-    [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
-    'package.json': {
-      content: {
-        dependencies: {
-          '@react-three/drei': '^4.1.1',
-          '@react-three/fiber': '^6.0.9',
-          '@types/three': '0.127.0',
-          react: '^17.0.2',
-          'react-dom': '^17.0.2',
-          three: '0.127.0',
+      },
+      [`public/${fileName}`]: {
+        content: fileName.includes('glb') ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
+      },
+      [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
+      'package.json': {
+        content: {
+          dependencies: {
+            '@react-three/drei': '^4.1.1',
+            '@react-three/fiber': '^6.0.9',
+            '@types/three': '0.127.0',
+            react: '^17.0.2',
+            'react-dom': '^17.0.2',
+            three: '0.127.0',
+          },
+          ...TSDeps,
         },
       },
     },
-  },
-})
+  }
+}
