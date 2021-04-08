@@ -7,10 +7,9 @@ import useSandbox from '../utils/useSandbox'
 import { saveAs } from 'file-saver'
 import { CodesandboxIcon, CopyIcon, DownloadIcon, ShadowIcon, TSIcon } from './icons'
 
-const Nav = ({ code, config, setConfig, fileName, textOriginalFile, buffer }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
   const [loading, sandboxId, error, sandboxCode] = useSandbox({
-    buffer,
     fileName,
     textOriginalFile,
     code,

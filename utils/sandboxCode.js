@@ -1,4 +1,4 @@
-export const sandboxCode = ({ fileName, textOriginalFile, code, types, buffer }) => {
+export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
   const TSDeps = types
     ? {
         devDependencies: {
@@ -74,8 +74,8 @@ export default function Viewer() {
         `,
       },
       [`public/${fileName}`]: {
-        content: fileName.includes('glb') ? buffer : textOriginalFile,
-        binary: true,
+        content: textOriginalFile,
+        binary: fileName.includes('glb'),
       },
       [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
       'package.json': {
