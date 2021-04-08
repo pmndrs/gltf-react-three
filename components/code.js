@@ -6,7 +6,7 @@ const Code = ({ jsx }) => {
     <Highlight {...defaultProps} theme={theme} code={jsx} language="jsx">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} whitespace-pre-wrap col-span-3 p-20 overflow-scroll h-screen`}
+          className={`${className} whitespace-pre-wrap col-span-3 p-16 overflow-scroll h-screen`}
           style={{
             ...style,
             fontSize: 12,

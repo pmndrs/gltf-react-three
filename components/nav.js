@@ -4,8 +4,9 @@ import copy from 'clipboard-copy'
 import 'tippy.js/dist/tippy.css'
 import useSandbox from '../lib/utils/useSandbox'
 import { CodesandboxIcon, CopyIcon, TSIcon } from './icons'
+import Toggle from './toggle'
 
-const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
   const [sandboxId, error] = useSandbox({ fileName, textOriginalFile, code })
 
@@ -23,14 +24,18 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li className={`${types ? 'text-blue-600' : ''} hover:text-blue-600 pr-5`}>
-          <Tippy content={types ? 'Hide Typescript types' : 'Show Typescript types'}>
-            <button className="cursor-pointer" onClick={() => setTypes((t) => !t)}>
+        <li className={`"hover:text-green-600 pr-5`}>
+          <Toggle onToggle={(shadows) => setConfig({ ...config, shadows })} active={config.shadows}>
+            Shadows
+          </Toggle>
+        </li>
+        <li className={`${config.types ? 'text-blue-600' : ''} hover:text-blue-600 pr-5`}>
+          <Tippy content={config.types ? 'Hide Typescript types' : 'Show Typescript types'}>
+            <button className="cursor-pointer" onClick={() => setConfig({ ...config, types: !config.types })}>
               <TSIcon />
             </button>
           </Tippy>
         </li>
-
         <li className={`${!copied ? 'text-gray-900' : 'text-green-600'} hover:text-green-600 pr-5`}>
           <Tippy content={copied ? 'Copied' : 'Copy to Clipboard'}>
             <button className="cursor-pointer" onClick={copyToClipboard}>

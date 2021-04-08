@@ -21,7 +21,7 @@ function arrayBufferToString(buffer, callback) {
 
 export default function Home() {
   const [fileName, setFileName] = useState('')
-  const [originalFile, setOriginalFile] = useState()
+  const [buffer, setBuffer] = useState()
   const [textOriginalFile, setTextOriginalFile] = useState()
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.forEach((file) => {
@@ -30,7 +30,7 @@ export default function Home() {
       reader.onerror = () => console.log('file reading has failed')
       reader.onload = async () => {
         const data = reader.result
-        setOriginalFile(data)
+        setBuffer(data)
         setFileName(file.name)
         arrayBufferToString(data, (a) => setTextOriginalFile(a))
       }
@@ -59,8 +59,8 @@ export default function Home() {
       </Head>
 
       <main className="flex flex-col items-center justify-center flex-1">
-        {originalFile ? (
-          <Result textOriginalFile={textOriginalFile} originalFile={originalFile} fileName={fileName}></Result>
+        {buffer ? (
+          <Result textOriginalFile={textOriginalFile} buffer={buffer} fileName={fileName}></Result>
         ) : (
           <div className="h-screen w-screen flex flex-col items-center justify-center text-center" {...getRootProps()}>
             <input {...getInputProps()} />
