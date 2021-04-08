@@ -3,8 +3,7 @@ import Tippy from '@tippyjs/react'
 import copy from 'clipboard-copy'
 import 'tippy.js/dist/tippy.css'
 import useSandbox from '../lib/utils/useSandbox'
-import { CodesandboxIcon, CopyIcon, TSIcon } from './icons'
-import Toggle from './toggle'
+import { CodesandboxIcon, CopyIcon, ShadowIcon, TSIcon } from './icons'
 
 const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
@@ -24,15 +23,17 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li className={`"hover:text-green-600 pr-5`}>
-          <Toggle onToggle={(shadows) => setConfig({ ...config, shadows })} active={config.shadows}>
-            Shadows
-          </Toggle>
-        </li>
         <li className={`${config.types ? 'text-blue-600' : ''} hover:text-blue-600 pr-5`}>
           <Tippy content={config.types ? 'Hide Typescript types' : 'Show Typescript types'}>
             <button className="cursor-pointer" onClick={() => setConfig({ ...config, types: !config.types })}>
               <TSIcon />
+            </button>
+          </Tippy>
+        </li>
+        <li className={`${!config.shadows ? 'text-gray-900' : 'text-green-600'} hover:text-green-600 pr-5`}>
+          <Tippy content={config.shadows ? 'Hide Shadow Code' : 'Show Shadow Code'}>
+            <button className="cursor-pointer" onClick={() => setConfig({ ...config, shadows: !config.shadows })}>
+              <ShadowIcon />
             </button>
           </Tippy>
         </li>
