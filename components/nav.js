@@ -3,8 +3,7 @@ import Tippy from '@tippyjs/react'
 import copy from 'clipboard-copy'
 import 'tippy.js/dist/tippy.css'
 import useSandbox from '../lib/utils/useSandbox'
-import { CodesandboxIcon, CopyIcon } from './icons'
-import Toggle from './toggle'
+import { CodesandboxIcon, CopyIcon, TSIcon } from './icons'
 
 const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
@@ -24,8 +23,12 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li className={`" hover:text-green-600 pr-5`}>
-          <Toggle onToggle={setTypes} active={types} />
+        <li className={`${types ? 'text-blue-600' : ''} hover:text-blue-600 pr-5`}>
+          <Tippy content={types ? 'Hide Typescript types' : 'Show Typescript types'}>
+            <button className="cursor-pointer" onClick={() => setTypes((t) => !t)}>
+              <TSIcon />
+            </button>
+          </Tippy>
         </li>
 
         <li className={`${!copied ? 'text-gray-900' : 'text-green-600'} hover:text-green-600 pr-5`}>
