@@ -29,7 +29,7 @@ const Result = (props) => {
       <div className="grid grid-cols-5">
         {jsx && <Code jsx={jsx} />}
         <div className="grid grid-rows-autofill col-span-2">
-          <Nav config={config} setConfig={setConfig} code={jsx} fileName={fileName} {...rest} />
+          <Nav config={config} jsx={jsx} setConfig={setConfig} code={jsx} fileName={fileName} {...rest} />
           <section className="h-full w-full">{scene && <Viewer scene={scene} />}</section>
         </div>
       </div>

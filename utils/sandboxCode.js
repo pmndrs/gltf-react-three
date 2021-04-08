@@ -1,4 +1,4 @@
-export const sandboxCode = ({ fileName, textOriginalFile, code }) => ({
+export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => ({
   files: {
     'public/index.html': {
       content: `<!DOCTYPE html>
@@ -123,7 +123,7 @@ export default Viewer
       content: textOriginalFile,
       isBinary: fileName.includes('glb'),
     },
-    'src/Model.js': { content: code },
+    [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
     'package.json': {
       content: {
         dependencies: {

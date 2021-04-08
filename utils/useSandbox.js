@@ -3,8 +3,11 @@ import { sandboxCode } from './sandboxCode'
 
 const useSandbox = (props) => {
   const [sandboxId, setSandboxId] = useState()
+  const [loading, setLoading] = useState(false)
   const [error, setErr] = useState(false)
   useEffect(() => {
+    setLoading(true)
+    setErr(false)
     fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
       method: 'POST',
       headers: {
@@ -16,9 +19,10 @@ const useSandbox = (props) => {
       .then((x) => x.json())
       .then((data) => setSandboxId(data.sandbox_id))
       .catch(() => setErr(true))
-  }, [])
+      .finally(() => setLoading(false))
+  }, [props.jsx])
 
-  return [sandboxId, error]
+  return [loading, sandboxId, error]
 }
 
 export default useSandbox
