@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react'
+import { GLTFLoader, DRACOLoader } from 'three-stdlib'
 import { parse } from '../lib/gltsfx'
 import Nav from './nav'
 import Viewer from './viewer'
 import Code from './code'
 
+const gltfLoader = new GLTFLoader()
+const dracoloader = new DRACOLoader()
+dracoloader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+gltfLoader.setDRACOLoader(dracoloader)
+
 const Result = (props) => {
   const [jsx, setJSX] = useState()
   const [scene, setScene] = useState()
   const [types, setTypes] = useState(false)
-  const { fileName, originalFile, ...rest } = props
+  const { fileName, buffer, ...rest } = props
 
   useEffect(async () => {
-    const parsed = await parse(fileName, originalFile, types)
-    setJSX(parsed.jsx)
-    if (!scene) {
-      setScene(parsed.scene)
-    }
+    const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve))
+    setJSX(parse(fileName, result, { types }))
+    if (!scene) setScene(result.scene)
   }, [types])
 
   if (!jsx && !scene) return <p className="text-4xl font-bold">Loading ...</p>
