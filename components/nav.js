@@ -6,6 +6,7 @@ import useSandbox from '../utils/useSandbox'
 
 import { saveAs } from 'file-saver'
 import { CodesandboxIcon, CopyIcon, DownloadIcon, ShadowIcon, TSIcon } from './icons'
+import { isGlb } from '../utils/isExtension'
 
 const Nav = ({ code, config, setConfig, fileName, textOriginalFile, buffer }) => {
   const [copied, setCopied] = useState(false)
@@ -58,7 +59,7 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile, buffer }) =>
           </Tippy>
         </li>
 
-        {!fileName.includes('.glb') ? (
+        {!isGlb(fileName) ? (
           !error ? (
             <li className={`${!loading ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
               <Tippy content={!loading ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
@@ -87,7 +88,7 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile, buffer }) =>
             </li>
           )
         ) : null}
-        <li className={`text-gray-900 hover:text-green-600 ${!fileName.includes('.glb') ? 'pl-5' : ''}`}>
+        <li className={`text-gray-900 hover:text-green-600 ${!isGlb(fileName) ? 'pl-5' : ''}`}>
           <Tippy content={'Download As Zip'}>
             <button className="cursor-pointer" onClick={download}>
               <DownloadIcon />

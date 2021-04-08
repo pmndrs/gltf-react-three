@@ -1,3 +1,5 @@
+import { isGlb } from './isExtension'
+
 export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
   const TSDeps = types
     ? {
@@ -76,7 +78,7 @@ body,
         `,
       },
       [`public/${fileName}`]: {
-        content: fileName.includes('.glb') ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
+        content: isGlb(fileName) ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
       },
       [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
       'package.json': {
