@@ -74,7 +74,7 @@ export default function Viewer() {
         `,
       },
       [`public/${fileName}`]: {
-        content: fileName.includes('glb') ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
+        content: fileName.includes('.glb') ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
       },
       [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
       'package.json': {
