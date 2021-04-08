@@ -18,7 +18,7 @@ const useSandbox = (props) => {
     })
       .then((x) => x.json())
       .then((data) => setSandboxId(data.sandbox_id))
-      .catch(() => setErr(true))
+      .catch((e) => console.log(e) || setErr(true))
       .finally(() => setLoading(false))
   }, [props.code])
 

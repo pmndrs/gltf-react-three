@@ -47,9 +47,8 @@ ReactDOM.render(<App />, document.getElementById("root"))`,
       },
       [`src/App.${types ? 'tsx' : 'js'}`]: {
         content: `
-import * as THREE from 'three'
-import React, { Suspense, useState } from 'react'
-import { Canvas, useThree } from '@react-three/fiber'
+import React, { Suspense } from 'react'
+import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import Model from './Model'
 
