@@ -69,7 +69,7 @@ export default function Home() {
 
       <main className="flex flex-col items-center justify-center flex-1">
         {buffer ? (
-          <Result textOriginalFile={textOriginalFile} fileName={fileName}></Result>
+          <Result textOriginalFile={textOriginalFile} buffer={buffer} fileName={fileName}></Result>
         ) : (
           <div className="h-screen w-screen flex flex-col items-center justify-center text-center" {...getRootProps()}>
             <input {...getInputProps()} />

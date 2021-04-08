@@ -29,7 +29,7 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
 
   const download = async () => {
     const createZip = await import('../utils/createZip').then((mod) => mod.createZip)
-    const blob = await createZip(sandboxCode)
+    const blob = await createZip(sandboxCode, fileName, textOriginalFile)
     saveAs(blob, `${fileName.split('.')[0]}.zip`)
   }
 

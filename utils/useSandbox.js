@@ -17,7 +17,7 @@ const useSandbox = (props) => {
         'Content-Type': 'application/json',
         Accept: 'application/json',
       },
-      body: JSON.stringify(sandboxCode),
+      body: JSON.stringify(sandboxCodeReturn),
     })
       .then((x) => x.json())
       .then((data) => setSandboxId(data.sandbox_id))
