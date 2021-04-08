@@ -66,11 +66,13 @@ export default function Viewer() {
 }`,
       },
       'src/style.css': {
-        content: `body,
-        #root {
-          height: 100vh;
-          width: 100vw;
-        }
+        content: `
+body,
+#root {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+}
         `,
       },
       [`public/${fileName}`]: {
