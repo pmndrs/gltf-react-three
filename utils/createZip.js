@@ -1,5 +1,5 @@
 import JSZip from 'jszip'
-import { isGlb, IsJson } from './isExtension'
+import { isGlb, isJson } from './isExtension'
 
 export const createZip = async ({ sandboxCode, fileName, textOriginalFile, buffer }) => {
   var zip = new JSZip()
@@ -11,7 +11,7 @@ export const createZip = async ({ sandboxCode, fileName, textOriginalFile, buffe
     } else {
       zip.file(
         file,
-        IsJson(fileName) ? JSON.stringify(sandboxCode.files[file].content, null, 2) : sandboxCode.files[file].content
+        isJson(fileName) ? JSON.stringify(sandboxCode.files[file].content, null, 2) : sandboxCode.files[file].content
       )
     }
   })
