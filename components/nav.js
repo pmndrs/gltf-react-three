@@ -6,7 +6,7 @@ import useSandbox from '../lib/utils/useSandbox'
 import { CodesandboxIcon, CopyIcon } from './icons'
 import Toggle from './toggle'
 
-const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
   const [copied, setCopied] = useState(false)
   const [sandboxId, error] = useSandbox({ fileName, textOriginalFile, code })
 
@@ -24,8 +24,15 @@ const Nav = ({ code, types, setTypes, fileName, textOriginalFile }) => {
   return (
     <nav className="p-10 flex justify-end align-center">
       <ul className="flex justify-end align-center">
-        <li className={`" hover:text-green-600 pr-5`}>
-          <Toggle onToggle={setTypes} active={types} />
+        <li className={`"hover:text-green-600 pr-5`}>
+          <Toggle onToggle={(types) => setConfig({ ...config, types })} active={config.types}>
+            Typescript
+          </Toggle>
+        </li>
+        <li className={`"hover:text-green-600 pr-5`}>
+          <Toggle onToggle={(shadows) => setConfig({ ...config, shadows })} active={config.shadows}>
+            Shadows
+          </Toggle>
         </li>
 
         <li className={`${!copied ? 'text-gray-900' : 'text-green-600'} hover:text-green-600 pr-5`}>

@@ -13,14 +13,14 @@ gltfLoader.setDRACOLoader(dracoloader)
 const Result = (props) => {
   const [jsx, setJSX] = useState()
   const [scene, setScene] = useState()
-  const [types, setTypes] = useState(false)
+  const [config, setConfig] = useState({ types: false, shadows: true })
   const { fileName, buffer, ...rest } = props
 
   useEffect(async () => {
-    const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve))
-    setJSX(parse(fileName, result, { types }))
+    const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
+    setJSX(parse(fileName, result, config))
     if (!scene) setScene(result.scene)
-  }, [types])
+  }, [config])
 
   if (!jsx && !scene) return <p className="text-4xl font-bold">Loading ...</p>
 
@@ -29,7 +29,7 @@ const Result = (props) => {
       <div className="grid grid-cols-5">
         {jsx && <Code jsx={jsx} />}
         <div className="grid grid-rows-autofill col-span-2">
-          <Nav types={types} setTypes={setTypes} code={jsx} fileName={fileName} {...rest} />
+          <Nav config={config} setConfig={setConfig} code={jsx} fileName={fileName} {...rest} />
           <section className="h-full w-full">{scene && <Viewer scene={scene} />}</section>
         </div>
       </div>
