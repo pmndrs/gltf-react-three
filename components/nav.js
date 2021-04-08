@@ -5,9 +5,9 @@ import 'tippy.js/dist/tippy.css'
 import useSandbox from '../lib/utils/useSandbox'
 import { CodesandboxIcon, CopyIcon, ShadowIcon, TSIcon } from './icons'
 
-const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
+const Nav = ({ code, config, setConfig, fileName, textOriginalFile, jsx }) => {
   const [copied, setCopied] = useState(false)
-  const [sandboxId, error] = useSandbox({ fileName, textOriginalFile, code })
+  const [loading, sandboxId, error] = useSandbox({ fileName, textOriginalFile, code, types: config.types, jsx })
 
   const copyToClipboard = async () => {
     try {
@@ -46,13 +46,13 @@ const Nav = ({ code, config, setConfig, fileName, textOriginalFile }) => {
         </li>
 
         {!error ? (
-          <li className={`${sandboxId ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
-            <Tippy content={sandboxId ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
-              {sandboxId ? (
+          <li className={`${!loading ? 'text-gray-900 hover:text-green-600' : 'text-gray-200'} `}>
+            <Tippy content={!loading ? 'Open in Codesandbox' : 'Creating a sandbox...'}>
+              {!loading ? (
                 <a
                   className="cursor-pointer"
                   rel="noreferrer"
-                  href={`https://codesandbox.io/s/${sandboxId}`}
+                  href={`https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`}
                   target="_blank">
                   <CodesandboxIcon />
                 </a>
