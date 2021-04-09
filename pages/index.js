@@ -70,6 +70,10 @@ export default function Home() {
             className="underline hover:text-blue-600"
             href="https://github.com/pmndrs/gltf-react-three/graphs/contributors">
             contributors
+          </a>{' '}
+          inspired by the{' '}
+          <a className="underline hover:text-blue-600" href="https://github.com/pmndrs/gltfjsx">
+            gltfjsx cli
           </a>
         </p>
         <a href="https://github.com/pmndrs/gltf-react-three/" target="_blank" rel="noreferrer">
