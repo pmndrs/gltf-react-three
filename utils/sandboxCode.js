@@ -49,20 +49,21 @@ ReactDOM.render(<App />, document.getElementById("root"))`,
       },
       [`src/App.${types ? 'tsx' : 'js'}`]: {
         content: `
-import React, { Suspense } from 'react'
+import React, { Suspense, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 import Model from './Model'
 
 export default function Viewer() {
+  const ref = useRef()
   return (
-    <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 150], fov: 50 }}>
+    <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
       <Suspense fallback={null}>
-        <Stage contactShadow shadows adjustCamera environment="city">
+        <Stage controls={ref} contactShadow shadows adjustCamera environment="city">
           <Model />
         </Stage>
       </Suspense>
-      <OrbitControls autoRotate />
+      <OrbitControls ref={ref} autoRotate />
     </Canvas>
   )
 }`,
@@ -84,8 +85,8 @@ body,
       'package.json': {
         content: {
           dependencies: {
-            '@react-three/drei': '^4.1.1',
-            '@react-three/fiber': '^6.0.9',
+            '@react-three/drei': '^4.1.3',
+            '@react-three/fiber': '^6.0.10',
             '@types/three': '0.127.0',
             react: '^17.0.2',
             'react-dom': '^17.0.2',
