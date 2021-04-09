@@ -5,6 +5,7 @@ import suzanne from '../public/suzanne.gltf'
 import SEO from '../components/SEO'
 import FileDrop from '../components/fileDrop'
 import arrayBufferToString from '../utils/arrayBufferToString'
+import { GitHub, Logo } from '../components/icons'
 
 const Loading = () => <p className="text-4xl font-bold">Loading ...</p>
 
@@ -42,7 +43,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <SEO />
       <main className="flex flex-col items-center justify-center flex-1">
         {buffer ? (
@@ -51,6 +52,30 @@ export default function Home() {
           <FileDrop onDrop={onDrop} useSuzanne={useSuzanne} />
         )}
       </main>
+      <footer className="p-4 flex items-center justify-between w-full">
+        <a href="https://pmnd.rs/" target="_blank" rel="noreferrer">
+          <Logo />
+        </a>
+        <p className="text-xs">
+          Made by{' '}
+          <a
+            className="underline hover:text-blue-600"
+            href="https://twitter.com/NikkitaFTW"
+            target="_blank"
+            rel="noreferrer">
+            @NikkitaFTW
+          </a>{' '}
+          &{' '}
+          <a
+            className="underline hover:text-blue-600"
+            href="https://github.com/pmndrs/gltf-react-three/graphs/contributors">
+            contributors
+          </a>
+        </p>
+        <a href="https://github.com/pmndrs/gltf-react-three/" target="_blank" rel="noreferrer">
+          <GitHub />
+        </a>
+      </footer>
     </div>
   )
 }
