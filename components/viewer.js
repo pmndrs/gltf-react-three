@@ -1,9 +1,9 @@
-import React, { useLayoutEffect } from 'react'
-import { Suspense } from 'react'
+import React, { Suspense, useLayoutEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
 
 export default function Viewer({ scene }) {
+  const ref = useRef()
   useLayoutEffect(() => {
     scene.traverse((obj) => {
       if (obj.isMesh) {
@@ -17,11 +17,11 @@ export default function Viewer({ scene }) {
     <Canvas shadows dpr={[1, 1.5]} camera={{ position: [0, 0, 150], fov: 50 }}>
       <ambientLight intensity={0.25} />
       <Suspense fallback={null}>
-        <Stage contactShadow shadows adjustCamera environment="city">
+        <Stage controls={ref} contactShadow shadows adjustCamera environment="city">
           <primitive object={scene} />
         </Stage>
       </Suspense>
-      <OrbitControls autoRotate />
+      <OrbitControls ref={ref} autoRotate />
     </Canvas>
   )
 }
