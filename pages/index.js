@@ -5,6 +5,7 @@ import suzanne from '../public/suzanne.gltf'
 import SEO from '../components/SEO'
 import FileDrop from '../components/fileDrop'
 import arrayBufferToString from '../utils/arrayBufferToString'
+import Footer from '../components/footer'
 
 const Loading = () => <p className="text-4xl font-bold">Loading ...</p>
 
@@ -42,7 +43,7 @@ export default function Home() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <SEO />
       <main className="flex flex-col items-center justify-center flex-1">
         {buffer ? (
@@ -51,6 +52,7 @@ export default function Home() {
           <FileDrop onDrop={onDrop} useSuzanne={useSuzanne} />
         )}
       </main>
+      <Footer />
     </div>
   )
 }

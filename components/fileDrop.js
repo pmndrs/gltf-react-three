@@ -8,7 +8,7 @@ const FileDrop = ({ onDrop, useSuzanne }) => {
   })
 
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center text-center" {...getRootProps()}>
+    <div className="h-full w-screen flex flex-col items-center justify-center text-center" {...getRootProps()}>
       <input {...getInputProps()} />
 
       {isDragActive ? (

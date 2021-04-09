@@ -25,7 +25,7 @@ const Result = (props) => {
   if (!code && !scene) return <p className="text-4xl font-bold">Loading ...</p>
 
   return (
-    <div className="min-h-screen w-screen ">
+    <div className="h-full w-screen" style={{ height: 'calc(100vh - 56px)' }}>
       <div className="grid grid-cols-5">
         {code && <Code>{code}</Code>}
         <div className="grid grid-rows-autofill col-span-2">
