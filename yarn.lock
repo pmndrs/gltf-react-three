@@ -484,10 +484,10 @@
     utility-types "^3.10.0"
     zustand "^3.3.3"
 
-"@react-three/gltfjsx@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.1.tgz#f5260e002ee29ded71042fe18bd749c478742d14"
-  integrity sha512-jhWdKisl7FywUIOiGuk9d6y+p41MMGLMQ4joAVoqIgW/5+6KOi+tViSYikvO1R4vvCcOxu2up1JGXCirXFXbrA==
+"@react-three/gltfjsx@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.2.tgz#470cfd17b0eec02bb11acd093b5aa81a87202a3a"
+  integrity sha512-y3XjqHmNg+ybmJxJjiFKnInvYcFzKx3IO/EjXXe+lmt9vivYi/Ytfhu8Ef/DSbDKZdkbHbbtDHcaORlm063zkg==
   dependencies:
     draco3dgltf "^1.4.0"
     import-jsx "^4.0.0"
