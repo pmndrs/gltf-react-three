@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-
+import { Toaster } from 'react-hot-toast'
 import dynamic from 'next/dynamic'
 import suzanne from '../public/suzanne.gltf'
 import SEO from '../components/SEO'
@@ -53,6 +53,7 @@ export default function Home() {
         )}
       </main>
       <Footer />
+      <Toaster />
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import { isGlb } from './isExtension'
 
-export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
-  const TSDeps = types
+export const sandboxCode = ({ fileName, textOriginalFile, code, config }) => {
+  const TSDeps = config.types
     ? {
         devDependencies: {
           '@types/react': '17.0.0',
@@ -38,7 +38,7 @@ export const sandboxCode = ({ fileName, textOriginalFile, code, types }) => {
         </body>
         </html>`,
       },
-      [`src/index.${types ? 'tsx' : 'js'}`]: {
+      [`src/index.${config.types ? 'tsx' : 'js'}`]: {
         content: `
 import React from 'react'
 import ReactDOM from "react-dom"
@@ -47,7 +47,7 @@ import App from "./App"
 
 ReactDOM.render(<App />, document.getElementById("root"))`,
       },
-      [`src/App.${types ? 'tsx' : 'js'}`]: {
+      [`src/App.${config.types ? 'tsx' : 'js'}`]: {
         content: `
 import React, { Suspense, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
@@ -81,7 +81,7 @@ body,
       [`public/${fileName}`]: {
         content: isGlb(fileName) ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
       },
-      [`src/Model.${types ? 'tsx' : 'js'}`]: { content: code },
+      [`src/Model.${config.types ? 'tsx' : 'js'}`]: { content: code },
       'package.json': {
         content: {
           dependencies: {
