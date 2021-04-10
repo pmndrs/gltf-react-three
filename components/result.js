@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { GLTFLoader, DRACOLoader } from 'three-stdlib'
+import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
 import parse from '@react-three/gltfjsx'
 import Nav from './nav'
 import Viewer from './viewer'
@@ -9,6 +9,7 @@ const gltfLoader = new GLTFLoader()
 const dracoloader = new DRACOLoader()
 dracoloader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
 gltfLoader.setDRACOLoader(dracoloader)
+gltfLoader.setMeshoptDecoder(MeshoptDecoder)
 
 const Result = (props) => {
   const [code, setCode] = useState()
