@@ -6,11 +6,11 @@ const Code = ({ children }) => {
     <Highlight {...defaultProps} theme={theme} code={children} language="jsx">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
-          className={`${className} whitespace-pre-wrap col-span-3 p-16 overflow-scroll h-screen`}
+          className={`${className} whitespace-pre-wrap col-span-3 p-16 overflow-auto bg-white`}
           style={{
             ...style,
             fontSize: 12,
-            backgroundColor: 'white',
+            height: 'calc(100vh - 56px)',
           }}>
           {tokens.map((line, i) => (
             <div key={i} {...getLineProps({ line, key: i })}>

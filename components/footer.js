@@ -1,7 +1,7 @@
 import { GitHub, Logo } from './icons'
 
 const Footer = () => (
-  <footer className="p-4 flex items-center justify-between w-full">
+  <footer className="p-4 flex items-center justify-between w-full bg-white z-10 relative">
     <a href="https://pmnd.rs/" target="_blank" rel="noreferrer">
       <Logo />
     </a>
