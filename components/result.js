@@ -53,8 +53,8 @@ const Result = (props) => {
       })
     )
 
-    if (!isGlb(fileName)) {
-      const name = 'codesandbox' + (loading ? ' loading' : '') + (error ? ' ' + error : '')
+    if (!isGlb(fileName) && !error) {
+      const name = 'codesandbox' + (loading ? ' loading' : '')
       temp[name] = button(() => {
         location.href = sandboxId
           ? `https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`

@@ -28,7 +28,6 @@ const useSandbox = (props) => {
         setErr(true)
       }
     } catch {
-      console.error(e)
       setErr(true)
     }
     setLoading(false)
