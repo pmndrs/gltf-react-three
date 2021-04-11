@@ -1,10 +1,11 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback, useMemo } from 'react'
 import { GLTFLoader, DRACOLoader } from 'three-stdlib'
 import parse from '@react-three/gltfjsx'
 import copy from 'clipboard-copy'
 import { saveAs } from 'file-saver'
 import { Leva, useControls, button } from 'leva'
 import toast from 'react-hot-toast'
+import { isGlb } from '../utils/isExtension'
 import useSandbox from '../utils/useSandbox'
 import Viewer from './viewer'
 import Code from './code'
@@ -24,45 +25,47 @@ const Result = (props) => {
     verbose: false,
     meta: false,
     precision: { value: 2, min: 1, max: 8, step: 1 },
-    printwidth: { value: 100, min: 80, max: 140, step: 10 },
   })
 
   const [loading, sandboxId, error, sandboxCode] = useSandbox({ fileName, textOriginalFile, code, config })
 
-  console.log('render', sandboxCode)
   const download = useCallback(async () => {
     const createZip = await import('../utils/createZip').then((mod) => mod.createZip)
-    console.log('download', sandboxCode)
     const blob = await createZip({ sandboxCode, fileName, textOriginalFile, buffer })
     saveAs(blob, `${fileName.split('.')[0]}.zip`)
   }, [sandboxCode, fileName, textOriginalFile, buffer])
 
-  useControls(
-    'exports',
-    {
-      'copy to clipboard': button(() =>
-        toast.promise(copy(code), {
-          loading: 'Loading',
-          success: () => `Successfully copied`,
-          error: (err) => err.toString(),
-        })
-      ),
-      codesandbox: button(() => alert('click')),
-      'download zip': button(() =>
-        toast.promise(download(), {
-          loading: 'Loading',
-          success: () => `Ready for download`,
-          error: (err) => err.toString(),
-        })
-      ),
-    },
-    { collapsed: true },
-    [sandboxCode]
-  )
+  const exports = useMemo(() => {
+    const temp = {}
+    temp['copy to clipboard'] = button(() =>
+      toast.promise(copy(code), {
+        loading: 'Loading',
+        success: () => `Successfully copied`,
+        error: (err) => err.toString(),
+      })
+    )
+    temp['download zip'] = button(() =>
+      toast.promise(download(), {
+        loading: 'Loading',
+        success: () => `Ready for download`,
+        error: (err) => err.toString(),
+      })
+    )
+
+    if (!isGlb(fileName)) {
+      temp['codesandbox' + (loading ? ' loading' : '') + (error ? ' ' + error : '')] = button(() => {
+        location.href = `https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`
+      })
+    }
+
+    return temp
+  }, [fileName, loading, error, sandboxCode, sandboxId, config.types])
+
+  useControls('exports', exports, { collapsed: true }, [exports])
 
   useEffect(async () => {
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
-    setCode(parse(fileName, result, config))
+    setCode(parse(fileName, result, { ...config, printwidth: 100 }))
     if (!scene) setScene(result.scene)
   }, [config])
 
@@ -74,7 +77,7 @@ const Result = (props) => {
         {code && <Code>{code}</Code>}
         <section className="h-full w-full col-span-2">{scene && <Viewer scene={scene} />}</section>
       </div>
-      <Leva titleBar={{ title: 'config' }} collapsed />
+      <Leva titleBar={{ title: 'config' }} />
     </div>
   )
 }
