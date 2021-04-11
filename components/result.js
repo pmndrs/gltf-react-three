@@ -54,8 +54,11 @@ const Result = (props) => {
     )
 
     if (!isGlb(fileName)) {
-      temp['codesandbox' + (loading ? ' loading' : '') + (error ? ' ' + error : '')] = button(() => {
-        location.href = `https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`
+      const name = 'codesandbox' + (loading ? ' loading' : '') + (error ? ' ' + error : '')
+      temp[name] = button(() => {
+        location.href = sandboxId
+          ? `https://codesandbox.io/s/${sandboxId}?file=/src/Model.${config.types ? 'tsx' : 'js'}`
+          : '#'
       })
     }
 

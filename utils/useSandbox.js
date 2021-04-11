@@ -6,26 +6,36 @@ const useSandbox = (props) => {
   const [loading, setLoading] = useState(false)
   const [error, setErr] = useState(false)
   const [sandboxCodeReturn, setSandboxCode] = useState()
-  useEffect(() => {
+
+  const createSandbox = async () => {
     setSandboxCode()
     setSandboxCode(sandboxCode(props))
     setLoading(true)
     setErr(false)
-    fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify(sandboxCode(props)),
-    })
-      .then((x) => x.json())
-      .then((data) => setSandboxId(data.sandbox_id))
-      .catch((e) => {
-        console.error(e)
+    try {
+      const data = await fetch('https://codesandbox.io/api/v1/sandboxes/define?json=1', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(sandboxCode(props)),
+      }).then((x) => x.json())
+
+      if (data.sandbox_id) {
+        setSandboxId(data.sandbox_id)
+      } else {
         setErr(true)
-      })
-      .finally(() => setLoading(false))
+      }
+    } catch {
+      console.error(e)
+      setErr(true)
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    createSandbox()
   }, [props.code])
 
   return [loading, sandboxId, error, sandboxCodeReturn]
