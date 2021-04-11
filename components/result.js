@@ -1,25 +1,16 @@
-import React, { useEffect, useState, useMemo, useCallback } from 'react'
-import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
-import parse from '@react-three/gltfjsx'
+import React, { useEffect, useMemo, useCallback } from 'react'
 import copy from 'clipboard-copy'
-import { saveAs } from 'file-saver'
 import { Leva, useControls, button } from 'leva'
 import toast from 'react-hot-toast'
 import { isGlb } from '../utils/isExtension'
 import useSandbox from '../utils/useSandbox'
 import Viewer from './viewer'
 import Code from './code'
+import useStore from '../utils/store'
 
-const gltfLoader = new GLTFLoader()
-const dracoloader = new DRACOLoader()
-dracoloader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
-gltfLoader.setDRACOLoader(dracoloader)
-gltfLoader.setMeshoptDecoder(MeshoptDecoder)
+const Result = () => {
+  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene } = useStore()
 
-const Result = (props) => {
-  const [code, setCode] = useState()
-  const [scene, setScene] = useState()
-  const { fileName, textOriginalFile, buffer } = props
   const config = useControls({
     types: false,
     shadows: true,
@@ -30,10 +21,12 @@ const Result = (props) => {
 
   const [loading, sandboxId, error, sandboxCode] = useSandbox({ fileName, textOriginalFile, code, config })
 
+  useEffect(async () => {
+    generateScene(config)
+  }, [config])
+
   const download = useCallback(async () => {
-    const createZip = await import('../utils/createZip').then((mod) => mod.createZip)
-    const blob = await createZip({ sandboxCode, fileName, textOriginalFile, buffer })
-    saveAs(blob, `${fileName.split('.')[0]}.zip`)
+    createZip({ sandboxCode })
   }, [sandboxCode, fileName, textOriginalFile, buffer])
 
   const exports = useMemo(() => {
@@ -61,17 +54,10 @@ const Result = (props) => {
           : '#'
       })
     }
-
     return temp
   }, [fileName, loading, error, sandboxCode, sandboxId, config.types])
 
   useControls('exports', exports, { collapsed: true }, [exports])
-
-  useEffect(async () => {
-    const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
-    setCode(parse(fileName, result, { ...config, printwidth: 100 }))
-    if (!scene) setScene(result.scene)
-  }, [config])
 
   if (!code && !scene) return <p className="text-4xl font-bold">Loading ...</p>
 

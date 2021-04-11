@@ -1,8 +1,10 @@
 import React, { Suspense, useLayoutEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
+import useStore from '../utils/store'
 
-export default function Viewer({ scene }) {
+export default function Viewer() {
+  const scene = useStore((store) => store.scene)
   const ref = useRef()
   useLayoutEffect(() => {
     scene.traverse((obj) => {
