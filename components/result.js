@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react'
-import { GLTFLoader, DRACOLoader } from 'three-stdlib'
+import React, { useEffect, useState, useMemo, useCallback } from 'react'
+import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
 import parse from '@react-three/gltfjsx'
 import copy from 'clipboard-copy'
 import { saveAs } from 'file-saver'
@@ -14,11 +14,12 @@ const gltfLoader = new GLTFLoader()
 const dracoloader = new DRACOLoader()
 dracoloader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
 gltfLoader.setDRACOLoader(dracoloader)
+gltfLoader.setMeshoptDecoder(MeshoptDecoder)
 
 const Result = (props) => {
   const [code, setCode] = useState()
   const [scene, setScene] = useState()
-  const { fileName, textOriginalFile, buffer, ...rest } = props
+  const { fileName, textOriginalFile, buffer } = props
   const config = useControls({
     types: false,
     shadows: true,
