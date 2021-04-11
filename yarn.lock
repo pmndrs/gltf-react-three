@@ -5249,3 +5249,8 @@ zustand@^3.0.3, zustand@^3.3.3:
   version "3.4.0"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.4.0.tgz#c41287822d310a185a1047159f488175f9338875"
   integrity sha512-rEO5ivKPOUcyHXjdLtE9J7rkyVXmm7D61MMwYF40b2Vv0pj8lkgtt5WFxdL6gKVQgNJSubqNbB+b4p9F6nrwxA==
+
+zustand@^3.4.1:
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-3.4.1.tgz#ff1bc8480facda3a4329510b8164aa5b821be133"
+  integrity sha512-Kb91vSjy5vwBQ/PQ1a5GE6naS3gCxCgpkujT9zqZSO85+gnvmzgqraMW3ao1I0jR4PwHBXtLTf26r9j7EXoUiQ==
