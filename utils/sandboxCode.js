@@ -82,6 +82,12 @@ body,
         content: isGlb(fileName) ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
       },
       [`src/Model.${config.types ? 'tsx' : 'js'}`]: { content: code },
+      '.gitignore': {
+        content: `
+node_modules
+build
+      `,
+      },
       'package.json': {
         content: {
           dependencies: {
