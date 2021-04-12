@@ -8,9 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
-    "@react-three/drei": "^4.1.4",
-    "@react-three/fiber": "^6.0.10",
-    "@react-three/gltfjsx": "^4.1.3",
+    "@react-three/drei": "^4.1.5",
+    "@react-three/fiber": "^6.0.12",
+    "@react-three/gltfjsx": "^4.1.4",
     "clipboard-copy": "^4.0.1",
     "fathom-client": "^3.0.0",
     "file-saver": "^2.0.5",
@@ -30,7 +30,7 @@
     "autoprefixer": "^10.2.5",
     "eslint": "^7.24.0",
     "eslint-plugin-react": "^7.23.2",
-    "postcss": "^8.2.9",
+    "postcss": "^8.2.10",
     "raw-loader": "^4.0.2",
     "tailwindcss": "^2.1.1"
   }

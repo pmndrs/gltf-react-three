@@ -638,10 +638,10 @@
     "@react-spring/shared" "^9.0.0"
     "@react-spring/types" "^9.0.0"
 
-"@react-three/drei@^4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.1.4.tgz#696162e6ec959786ff698d03102938475f3c00a8"
-  integrity sha512-QprZjXxwavrVNC9V9Wi+1WXtqrcS0sFj2aixPdvnnrSHXGJx3ah0+GJ5gZoWk2r2c0FAuD7bJY6b95gZGtYYiA==
+"@react-three/drei@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.1.5.tgz#e237730972e5ceca0ee9f4c81de7805b30d35ef5"
+  integrity sha512-Zw582mKM6y/idOSuy2VTH8xcSBplKCd+IqFcyKfWmqeLa+xjjPeVh6Ov4mhwxeMidGijGJwzMxsHwvWsI2NKyg==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/web" "^9.0.0-rc.3"
@@ -652,16 +652,16 @@
     lodash.pick "^4.4.0"
     react-merge-refs "^1.0.0"
     stats.js "^0.17.0"
-    three-stdlib "^1.1.4"
+    three-stdlib "^1.2.3"
     troika-three-text "^0.38.1"
     use-asset "^1.0.4"
     utility-types "^3.10.0"
     zustand "^3.0.3"
 
-"@react-three/fiber@^6.0.10":
-  version "6.0.10"
-  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-6.0.10.tgz#aa714035f1c85a1e33c10f9eb7176bd02d339a8d"
-  integrity sha512-/7Q2gv/Ht40rB8vZYxVkp61TP+Jp/5TVdv56jiTOH2XrAj4w+p5Cm1HwRsE9mWv8H2wCMAmxXnY7LUK6COE2Eg==
+"@react-three/fiber@^6.0.12":
+  version "6.0.12"
+  resolved "https://registry.yarnpkg.com/@react-three/fiber/-/fiber-6.0.12.tgz#21f5a95e1bf65f3f40cd876c07139d8dcb5c1bf4"
+  integrity sha512-Zd9l2CTrzGvkqt7ZAu1/jlqEBqL0jPveAJStOCKDg5vv+anWX7zLHIj9EpunEz06gsPMtAxo61itd4+89EkwYw==
   dependencies:
     "@babel/runtime" "^7.13.10"
     react-merge-refs "^1.1.0"
@@ -674,10 +674,10 @@
     utility-types "^3.10.0"
     zustand "^3.3.3"
 
-"@react-three/gltfjsx@^4.1.3":
-  version "4.1.3"
-  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.3.tgz#5a677ba8f66ca5d19fc2b6878c3848a38d3d349e"
-  integrity sha512-kssGZXUoK+4SfNCpPrNxUHQX7QC45Srzw9GDZh5A+1STKR3gJjKDzxti5hcEY4k24JLc8Ec7oOq73FpcUC1y2A==
+"@react-three/gltfjsx@^4.1.4":
+  version "4.1.4"
+  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.4.tgz#39c1bd6c9beb5ed83e184c57280567cdd5c07c2d"
+  integrity sha512-MPQCUOMqhybNYIadPG1bVCQg6lL84vWXNW7/JTKh4wpDyjt+3isXbdrlGvOJ7WudQhC6LiA6nr1KakeK1xKnZg==
   dependencies:
     draco3dgltf "^1.4.0"
     import-jsx "^4.0.0"
@@ -3733,10 +3733,19 @@ postcss@^7.0.32:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^8.1.6, postcss@^8.2.1, postcss@^8.2.9:
+postcss@^8.1.6, postcss@^8.2.1:
   version "8.2.9"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.9.tgz#fd95ff37b5cee55c409b3fdd237296ab4096fba3"
   integrity sha512-b+TmuIL4jGtCHtoLi+G/PisuIl9avxs8IZMSmlABRwNz5RLUUACrC+ws81dcomz1nRezm5YPdXiMEzBEKgYn+Q==
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.22"
+    source-map "^0.6.1"
+
+postcss@^8.2.10:
+  version "8.2.10"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.2.10.tgz#ca7a042aa8aff494b334d0ff3e9e77079f6f702b"
+  integrity sha512-b/h7CPV7QEdrqIxtAf2j31U5ef05uBDuvoXv6L51Q4rcS1jdlXAVKJv+atCFdUXYl9dyTHGyoMzIepwowRJjFw==
   dependencies:
     colorette "^1.2.2"
     nanoid "^3.1.22"
@@ -4729,10 +4738,10 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-three-stdlib@^1.1.4:
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-1.2.2.tgz#1bab8bd648d92d2d7759639f42864fc16876f46c"
-  integrity sha512-fcr84rofXVSeEqf27zBGEju6ih/lcvRRFSTjbHvDfAYKUd0r7tFLwQOUJxW6K7Y/M3pBQMRS9RWllADWuYIJGg==
+three-stdlib@^1.2.3:
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-1.2.3.tgz#58013a82e27e409b2592a97e35da8a1a39af67f0"
+  integrity sha512-wvQpSXIxzKo36KP1HikZE01kbUf0WOgkfj2e0eRWJPsfEnDmU0cHcqQirsZ80d4rrZyC2C6dFI9A7zWjwWBZoQ==
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@webgpu/glslang" "^0.0.15"
