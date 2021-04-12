@@ -67,7 +67,7 @@ const Result = () => {
         {code && <Code>{code}</Code>}
         <section className="h-full w-full col-span-2">{scene && <Viewer scene={scene} />}</section>
       </div>
-      <Leva titleBar={{ title: 'config' }} />
+      <Leva titleBar={{ title: 'config' }} collapsed />
     </div>
   )
 }
