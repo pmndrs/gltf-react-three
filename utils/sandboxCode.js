@@ -91,8 +91,8 @@ build
       'package.json': {
         content: {
           dependencies: {
-            '@react-three/drei': '^4.1.3',
-            '@react-three/fiber': '^6.0.10',
+            '@react-three/drei': '^4.1.6',
+            '@react-three/fiber': '^6.0.12',
             '@types/three': '0.127.0',
             react: '^17.0.2',
             'react-dom': '^17.0.2',

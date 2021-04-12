@@ -638,10 +638,10 @@
     "@react-spring/shared" "^9.0.0"
     "@react-spring/types" "^9.0.0"
 
-"@react-three/drei@^4.1.5":
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.1.5.tgz#e237730972e5ceca0ee9f4c81de7805b30d35ef5"
-  integrity sha512-Zw582mKM6y/idOSuy2VTH8xcSBplKCd+IqFcyKfWmqeLa+xjjPeVh6Ov4mhwxeMidGijGJwzMxsHwvWsI2NKyg==
+"@react-three/drei@^4.1.6":
+  version "4.1.6"
+  resolved "https://registry.yarnpkg.com/@react-three/drei/-/drei-4.1.6.tgz#c21eb74ac12e85201bd683b5172f31b4eec46487"
+  integrity sha512-xNUwFX42vC7VXye/d0J2UwWpwr8+0Ad9tuJZN2q77TuERTUe+X93uykWpK1kLLmJUDqdT5PNtCOn1GUFtbvJNQ==
   dependencies:
     "@babel/runtime" "^7.11.2"
     "@react-spring/web" "^9.0.0-rc.3"
@@ -674,10 +674,10 @@
     utility-types "^3.10.0"
     zustand "^3.3.3"
 
-"@react-three/gltfjsx@^4.1.4":
-  version "4.1.4"
-  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.4.tgz#39c1bd6c9beb5ed83e184c57280567cdd5c07c2d"
-  integrity sha512-MPQCUOMqhybNYIadPG1bVCQg6lL84vWXNW7/JTKh4wpDyjt+3isXbdrlGvOJ7WudQhC6LiA6nr1KakeK1xKnZg==
+"@react-three/gltfjsx@^4.1.5":
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/@react-three/gltfjsx/-/gltfjsx-4.1.5.tgz#f6ae2d3807fe9c81140bc537f19843da2a79b0f8"
+  integrity sha512-8me6vrf/VPBzLOPVV3J53nRoL+qwGU83XT6KIO+i6jhdmRDicq2MbsEaizSh+Izy7syReUlXfk99JpX3L67W5g==
   dependencies:
     draco3dgltf "^1.4.0"
     import-jsx "^4.0.0"
