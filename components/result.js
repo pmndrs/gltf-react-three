@@ -12,14 +12,32 @@ const Result = () => {
   const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene } = useStore()
 
   const config = useControls({
-    types: false,
-    shadows: true,
-    verbose: false,
-    meta: false,
-    precision: { value: 2, min: 1, max: 8, step: 1 },
+    types: { value: false, hint: 'Add Typescript definitions' },
+    shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
+    verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
+    meta: { value: false, hint: 'Include metadata (as userData)' },
+    precision: { value: 2, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
   })
 
-  const [loading, sandboxId, error, sandboxCode] = useSandbox({ fileName, textOriginalFile, code, config })
+  const preview = useControls(
+    'preview',
+    {
+      autoRotate: true,
+      contactShadow: true,
+      environment: {
+        value: 'city',
+        options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
+      },
+    },
+    { collapsed: true }
+  )
+
+  const [loading, sandboxId, error, sandboxCode] = useSandbox({
+    fileName,
+    textOriginalFile,
+    code,
+    config: { ...config, ...preview },
+  })
 
   useEffect(async () => {
     generateScene(config)
@@ -59,15 +77,19 @@ const Result = () => {
 
   useControls('exports', exports, { collapsed: true }, [exports])
 
-  if (!code && !scene) return <p className="text-4xl font-bold">Loading ...</p>
-
   return (
-    <div className="h-full w-screen" style={{ height: 'calc(100vh - 56px)' }}>
-      <div className="grid grid-cols-5">
-        {code && <Code>{code}</Code>}
-        <section className="h-full w-full col-span-2">{scene && <Viewer scene={scene} />}</section>
-      </div>
-      <Leva titleBar={{ title: 'config' }} collapsed />
+    <div className="h-full w-screen">
+      {!code && !scene ? (
+        <p className="text-4xl font-bold">Loading ...</p>
+      ) : (
+        <div className="grid grid-cols-5 h-screen">
+          {code && <Code>{code}</Code>}
+          <section className="h-full w-full col-span-2">
+            {scene && <Viewer scene={scene} {...config} {...preview} />}
+          </section>
+        </div>
+      )}
+      <Leva hideTitleBar collapsed />
     </div>
   )
 }

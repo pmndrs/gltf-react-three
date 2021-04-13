@@ -42,11 +42,10 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <SEO />
       <main className="flex flex-col items-center justify-center flex-1">
         {buffer ? <Result /> : <FileDrop onDrop={onDrop} useSuzanne={useSuzanne} />}
       </main>
-      <Footer />
+      <SEO />      
       <Toaster />
     </div>
   )
