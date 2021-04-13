@@ -42,11 +42,12 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <main className="flex flex-col items-center justify-center flex-1">
+      <main className="flex flex-col items-center justify-center flex-1" style={{ height: 'calc(100vh - 56px)' }}>
         {buffer ? <Result /> : <FileDrop onDrop={onDrop} useSuzanne={useSuzanne} />}
       </main>
-      <SEO />      
+      <SEO />
       <Toaster />
+      <Footer />
     </div>
   )
 }

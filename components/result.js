@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useCallback } from 'react'
 import copy from 'clipboard-copy'
+import saveAs from 'file-saver'
 import { Leva, useControls, button } from 'leva'
 import toast from 'react-hot-toast'
 import { isGlb } from '../utils/isExtension'
@@ -24,7 +25,7 @@ const Result = () => {
     {
       autoRotate: true,
       contactShadow: true,
-      intensity: { value: 1, min: 0, max: 2, step: 0.1 },
+      intensity: { value: 1, min: 0, max: 2, step: 0.1, label: 'light intensity' },
       preset: {
         value: 'rembrandt',
         options: ['rembrandt', 'portrait', 'upfront', 'soft'],
@@ -77,6 +78,16 @@ const Result = () => {
           : '#'
       })
     }
+
+    temp['download image'] = button(() => {
+      var image = document
+        .getElementsByTagName('canvas')[0]
+        .toDataURL('image/png')
+        .replace('image/png', 'image/octet-stream')
+
+      saveAs(image, `${fileName.split('.')[0]}.png`)
+    })
+
     return temp
   }, [fileName, loading, error, sandboxCode, sandboxId, config.types])
 
@@ -87,7 +98,7 @@ const Result = () => {
       {!code && !scene ? (
         <p className="text-4xl font-bold">Loading ...</p>
       ) : (
-        <div className="grid grid-cols-5 h-screen">
+        <div className="grid grid-cols-5 h-full">
           {code && <Code>{code}</Code>}
           <section className="h-full w-full col-span-2">
             {scene && <Viewer scene={scene} {...config} {...preview} />}
