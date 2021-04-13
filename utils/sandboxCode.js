@@ -70,8 +70,11 @@ export default function Viewer() {
       },
       'src/style.css': {
         content: `
+html,
 body,
 #root {
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   height: 100vh;
   width: 100vw;
