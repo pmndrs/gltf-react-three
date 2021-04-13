@@ -8,7 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
-    "@react-three/drei": "^4.1.6",
+    "@react-three/drei": "^4.1.8",
     "@react-three/fiber": "^6.0.13",
     "@react-three/gltfjsx": "^4.1.5",
     "clipboard-copy": "^4.0.1",

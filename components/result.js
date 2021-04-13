@@ -24,9 +24,14 @@ const Result = () => {
     {
       autoRotate: true,
       contactShadow: true,
+      intensity: { value: 1, min: 0, max: 2, step: 0.1 },
+      preset: {
+        value: 'rembrandt',
+        options: ['rembrandt', 'portrait', 'upfront', 'soft'],
+      },
       environment: {
         value: 'city',
-        options: ['sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
+        options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       },
     },
     { collapsed: true }

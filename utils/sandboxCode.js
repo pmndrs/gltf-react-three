@@ -59,7 +59,9 @@ export default function Viewer() {
   return (
     <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
       <Suspense fallback={null}>
-        <Stage controls={ref}${config.contactShadow ? ' contactShadow' : ''} shadows adjustCamera environment="${config.environment}">
+        <Stage controls={ref} preset="${config.preset}" intensity={${config.intensity}} ${
+          !config.contactShadow ? ' contactShadow={false}' : ''
+        }${!config.shadows ? ' shadows={false}' : ''} environment="${config.environment}">
           <Model />
         </Stage>
       </Suspense>
@@ -94,7 +96,7 @@ build
       'package.json': {
         content: {
           dependencies: {
-            '@react-three/drei': '^4.1.6',
+            '@react-three/drei': '^4.1.8',
             '@react-three/fiber': '^6.0.13',
             '@types/three': '0.127.0',
             react: '^17.0.2',

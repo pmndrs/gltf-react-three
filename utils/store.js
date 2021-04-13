@@ -15,7 +15,7 @@ const useStore = create((set, get) => ({
   buffer: null,
   textOriginalFile: '',
   code: '',
-  scene: '',
+  scene: null,
   createZip: async ({ sandboxCode }) => {
     await import('../utils/createZip').then((mod) => mod.createZip)
     const { fileName, textOriginalFile, buffer } = get()
@@ -27,10 +27,8 @@ const useStore = create((set, get) => ({
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
     const code = parse(fileName, result, { ...config, printwidth: 100 })
-
     set({ code })
-
-    if (!get().scene) useStore.setState({ scene: result.scene })
+    if (!get().scene) set({ scene: result.scene })
   },
 }))
 
