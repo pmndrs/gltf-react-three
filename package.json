@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@react-three/drei": "^4.1.6",
-    "@react-three/fiber": "^6.0.12",
+    "@react-three/fiber": "^6.0.13",
     "@react-three/gltfjsx": "^4.1.5",
     "clipboard-copy": "^4.0.1",
     "fathom-client": "^3.0.0",
