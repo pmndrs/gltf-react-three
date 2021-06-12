@@ -10,7 +10,7 @@ import Code from './code'
 import useStore from '../utils/store'
 
 const Result = () => {
-  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene } = useStore()
+  const { buffers, fileName, scene, code, createZip, generateScene } = useStore()
 
   const config = useControls({
     types: { value: false, hint: 'Add Typescript definitions' },
@@ -39,8 +39,7 @@ const Result = () => {
   )
 
   const [loading, sandboxId, error, sandboxCode] = useSandbox({
-    fileName,
-    textOriginalFile,
+    buffers,
     code,
     config: { ...config, ...preview },
   })
@@ -51,7 +50,7 @@ const Result = () => {
 
   const download = useCallback(async () => {
     createZip({ sandboxCode })
-  }, [sandboxCode, fileName, textOriginalFile, buffer])
+  }, [sandboxCode])
 
   const exports = useMemo(() => {
     const temp = {}

@@ -3,8 +3,6 @@ import { useDropzone } from 'react-dropzone'
 const FileDrop = ({ onDrop, useSuzanne }) => {
   const { getRootProps, getInputProps, isDragActive, fileRejections } = useDropzone({
     onDrop,
-    maxFiles: 1,
-    accept: '.gltf, .glb',
   })
 
   return (
