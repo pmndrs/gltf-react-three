@@ -1,6 +1,6 @@
-import { isGlb } from './isExtension'
+import { encode as arrayBufferToBase64 } from 'base64-arraybuffer'
 
-export const sandboxCode = ({ fileName, textOriginalFile, code, config }) => {
+export const sandboxCode = ({ buffers, code, config }) => {
   const TSDeps = config.types
     ? {
         devDependencies: {
@@ -83,9 +83,14 @@ body,
 }
         `,
       },
-      [`public/${fileName}`]: {
-        content: isGlb(fileName) ? btoa(unescape(encodeURIComponent(textOriginalFile))) : textOriginalFile,
-      },
+
+      ...Object.fromEntries(
+        Array.from(buffers.entries()).map(([path, buffer]) => [
+          `public/${path}`,
+          { content: arrayBufferToBase64(buffer) },
+        ])
+      ),
+
       [`src/Model.${config.types ? 'tsx' : 'js'}`]: { content: code },
       '.gitignore': {
         content: `
