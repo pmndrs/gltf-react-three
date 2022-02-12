@@ -1,8 +1,10 @@
 import { saveAs } from 'file-saver'
 import create from 'zustand'
 import { createZip } from '../utils/createZip'
-import parse from '@react-three/gltfjsx'
+import { parse } from '@react-three/gltfjsx'
 import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
+import prettier from 'prettier/standalone'
+import parserBabel from 'prettier/parser-babel'
 
 const gltfLoader = new GLTFLoader()
 const dracoloader = new DRACOLoader()
@@ -27,7 +29,7 @@ const useStore = create((set, get) => ({
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
     const code = parse(fileName, result, { ...config, printwidth: 100 })
-    set({ code })
+    set({ code: prettier.format(code, { parser: 'babel', plugins: [parserBabel] }) })
     if (!get().scene) set({ scene: result.scene })
   },
 }))
