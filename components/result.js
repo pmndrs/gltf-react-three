@@ -10,15 +10,15 @@ import Code from './code'
 import useStore from '../utils/store'
 
 const Result = () => {
-  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene } = useStore()
+  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations } = useStore()
 
-  const config = useControls({
+  const [config, setConfig] = useControls(() => ({
     types: { value: false, hint: 'Add Typescript definitions' },
     shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
     verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
     meta: { value: false, hint: 'Include metadata (as userData)' },
     precision: { value: 2, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
-  })
+  }))
 
   const preview = useControls(
     'preview',
@@ -44,6 +44,10 @@ const Result = () => {
     code,
     config: { ...config, ...preview },
   })
+
+  useEffect(() => {
+    setConfig({ verbose: animations })
+  }, [animations])
 
   useEffect(async () => {
     generateScene(config)

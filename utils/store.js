@@ -16,6 +16,7 @@ const useStore = create((set, get) => ({
   fileName: '',
   buffer: null,
   textOriginalFile: '',
+  animations: false,
   code: '',
   scene: null,
   createZip: async ({ sandboxCode }) => {
@@ -28,8 +29,12 @@ const useStore = create((set, get) => ({
   generateScene: async (config) => {
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
+
     const code = parse(fileName, result, { ...config, printwidth: 100 })
-    set({ code: prettier.format(code, { parser: 'babel', plugins: [parserBabel] }) })
+    set({
+      code: prettier.format(code, { parser: 'babel', plugins: [parserBabel] }),
+      animations: !!result.animations.length,
+    })
     if (!get().scene) set({ scene: result.scene })
   },
 }))
