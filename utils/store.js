@@ -5,6 +5,7 @@ import { parse } from '@react-three/gltfjsx'
 import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
 import prettier from 'prettier/standalone'
 import parserBabel from 'prettier/parser-babel'
+import parserTS from 'prettier/parser-typescript'
 
 const gltfLoader = new GLTFLoader()
 const dracoloader = new DRACOLoader()
@@ -31,8 +32,21 @@ const useStore = create((set, get) => ({
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
 
     const code = parse(fileName, result, { ...config, printwidth: 100 })
+
+    try {
+      const prettierConfig = config.types
+        ? { parser: 'typescript', plugins: [parserTS] }
+        : { parser: 'babel', plugins: [parserBabel] }
+
+      set({
+        code: prettier.format(code, prettierConfig),
+      })
+    } catch {
+      set({
+        code: code,
+      })
+    }
     set({
-      code: prettier.format(code, { parser: 'babel', plugins: [parserBabel] }),
       animations: !!result.animations.length,
     })
     if (!get().scene) set({ scene: result.scene })
