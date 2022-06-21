@@ -54,7 +54,7 @@ const Result = () => {
     setConfig({ verbose: animations })
   }, [animations])
 
-  useEffect(async () => {
+  useEffect(() => {
     generateScene(config)
   }, [config])
 
