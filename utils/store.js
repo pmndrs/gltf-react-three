@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver'
 import create from 'zustand'
 import { createZip } from '../utils/createZip'
-import { parse } from '@react-three/gltfjsx'
+import { parse } from 'gltfjsx'
 import { GLTFLoader, DRACOLoader, MeshoptDecoder } from 'three-stdlib'
 import prettier from 'prettier/standalone'
 import parserBabel from 'prettier/parser-babel'
@@ -30,7 +30,6 @@ const useStore = create((set, get) => ({
   generateScene: async (config) => {
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
-
     const code = parse(fileName, result, { ...config, printwidth: 100 })
 
     try {
