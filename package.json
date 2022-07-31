@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@react-three/drei": "^9.13.2",
-    "@react-three/fiber": "^7.0.26",
+    "@react-three/fiber": "^8.2.2",
     "clipboard-copy": "^4.0.1",
     "file-saver": "^2.0.5",
-    "gltfjsx": "^4.6.4",
+    "gltfjsx": "^5.0.2",
     "jszip": "^3.10.0",
     "leva": "^0.9.27",
     "next": "12.1.6",

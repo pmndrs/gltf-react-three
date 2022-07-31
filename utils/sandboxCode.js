@@ -4,13 +4,13 @@ export const sandboxCode = ({ fileName, textOriginalFile, code, config }) => {
   const TSDeps = config.types
     ? {
         devDependencies: {
-          '@types/react': '17.0.0',
-          '@types/react-dom': '17.0.0',
-          typescript: '4.1.3',
-          'react-scripts': '4.0.3',
+          '@types/react': '18.0.15',
+          '@types/react-dom': '18.0.6',
+          typescript: '4.7.4',
+          'react-scripts': '5.0.1',
         },
       }
-    : { devDependencies: { 'react-scripts': '4.0.3' } }
+    : { devDependencies: { 'react-scripts': '5.0.1' } }
   return {
     files: {
       'public/index.html': {
@@ -52,8 +52,7 @@ ReactDOM.render(<App />, document.getElementById("root"))`,
 import React, { Suspense, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Stage } from '@react-three/drei'
-import Model from './Model'
-
+${config.instanceall ? 'import { Instances, Model }' : 'import { Model }'} from './Model'
 export default function Viewer() {
   const ref = useRef()
   return (
@@ -62,7 +61,9 @@ export default function Viewer() {
         <Stage controls={ref} preset="${config.preset}" intensity={${config.intensity}} ${
           !config.contactShadow ? ' contactShadow={false}' : ''
         }${!config.shadows ? ' shadows={false}' : ''} environment="${config.environment}">
+        ${config.instanceall && '<Instances>'}
           <Model />
+        ${config.instanceall && '</Instances>'}
         </Stage>
       </Suspense>
       <OrbitControls ref={ref}${config.autoRotate ? ' autoRotate' : ''} />
@@ -96,12 +97,12 @@ build
       'package.json': {
         content: {
           dependencies: {
-            '@react-three/drei': '^4.1.8',
-            '@react-three/fiber': '^6.0.13',
-            '@types/three': '0.127.0',
-            react: '^17.0.2',
-            'react-dom': '^17.0.2',
-            three: '0.127.0',
+            '@react-three/drei': '9.13.2',
+            '@react-three/fiber': '8.2.2',
+            '@types/three': '0.143.0',
+            react: '18.2.0',
+            'react-dom': '18.2.0',
+            three: '0.143.0',
           },
           ...TSDeps,
           scripts: {
