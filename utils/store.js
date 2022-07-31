@@ -42,6 +42,8 @@ const useStore = create((set, get) => ({
   generateScene: async (config) => {
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
+    console.log(result)
+
     const code = parse(fileName, result, { ...config, printwidth: 100 })
 
     try {
