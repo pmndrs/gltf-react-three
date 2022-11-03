@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { sandboxCode } from './sandboxCode'
 
 const useSandbox = (props) => {
@@ -7,7 +7,8 @@ const useSandbox = (props) => {
   const [error, setErr] = useState(false)
   const [sandboxCodeReturn, setSandboxCode] = useState()
 
-  const createSandbox = async () => {
+  const createSandbox = useCallback(async () => {
+    const fetchSignal = new AbortController()
     setSandboxCode()
     setSandboxCode(sandboxCode(props))
     setLoading(true)
@@ -20,6 +21,7 @@ const useSandbox = (props) => {
           Accept: 'application/json',
         },
         body: JSON.stringify(sandboxCode(props)),
+        signal: fetchSignal
       }).then((x) => x.json())
 
       if (data.sandbox_id) {
@@ -31,7 +33,11 @@ const useSandbox = (props) => {
       setErr(true)
     }
     setLoading(false)
-  }
+
+    return () => {
+      fetchSignal.abort()
+    }
+  }, [props])
 
   useEffect(() => {
     createSandbox()

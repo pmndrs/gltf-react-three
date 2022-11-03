@@ -1,4 +1,4 @@
-import Head from 'next/head'
+import Head from "next/head";
 
 const SEO = () => (
   <Head>
@@ -8,10 +8,20 @@ const SEO = () => (
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="msapplication-TileColor" content="#da532c" />
     <meta name="theme-color" content="#ffffff" />
-    <title>GLTF {'->'} React Three Fiber </title>
+    <title>GLTF {"->"} React Three Fiber </title>
     <meta
       name="description"
-      content="Easily convert GLTF models into React Three Fiber components to use in your projects"></meta>
+      content="Easily convert GLTF models into React Three Fiber components to use in your projects"
+    />
+    <meta name="og:title" content="GLTF -> React Three Fiber" />
+    <meta
+      name="og:description"
+      content="Easily convert GLTF models into React Three Fiber components to use in your projects"
+    />
+    <meta
+      name="og:image"
+      content="https://gltf.pmnd.rs/android-chrome-192x192.png"
+    />
   </Head>
 )
 
