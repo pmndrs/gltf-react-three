@@ -109,9 +109,7 @@ const Result = () => {
       ) : (
         <div className="grid grid-cols-5 h-full">
           {code && <Code>{code}</Code>}
-          <section className="h-full w-full col-span-2">
-            {scene && <Viewer scene={scene} {...config} {...preview} />}
-          </section>
+          <section className="h-full w-full col-span-2">{scene && <Viewer {...config} {...preview} />}</section>
         </div>
       )}
       <Leva hideTitleBar collapsed />
