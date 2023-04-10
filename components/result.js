@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from 'react'
+import React, { useEffect, useMemo, useCallback, startTransition } from 'react'
 import copy from 'clipboard-copy'
 import saveAs from 'file-saver'
 import { Leva, useControls, button } from 'leva'
@@ -51,11 +51,15 @@ const Result = () => {
   })
 
   useEffect(() => {
-    setConfig({ verbose: animations })
+    startTransition(() => {
+      setConfig({ verbose: animations })
+    })
   }, [animations])
 
   useEffect(() => {
-    generateScene(config)
+    startTransition(() => {
+      generateScene(config)
+    })
   }, [config])
 
   const download = useCallback(async () => {
