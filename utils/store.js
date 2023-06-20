@@ -43,7 +43,7 @@ const useStore = create((set, get) => ({
     const { fileName, buffer } = get()
     const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
 
-    const code = parse(fileName, result, { ...config, printwidth: 100 })
+    const code = parse(result, { ...config, fileName, printwidth: 100 })
 
     try {
       const prettierConfig = config.types
