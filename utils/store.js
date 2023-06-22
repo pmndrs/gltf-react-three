@@ -15,8 +15,9 @@ import { WebGLRenderer } from 'three'
 let gltfLoader
 if (typeof window !== 'undefined') {
   const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
-  const dracoloader = new DRACOLoader().setDecoderPath(`${THREE_PATH}/examples/jsm/libs/draco/gltf/`)
-  const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/js/libs/basis/`)
+  // Use the same CDN as useGLTF for draco
+  const dracoloader = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/')
+  const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/jsm/libs/basis/`)
 
   gltfLoader = new GLTFLoader()
     .setCrossOrigin('anonymous')
