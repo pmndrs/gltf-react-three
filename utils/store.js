@@ -1,65 +1,70 @@
 import { saveAs } from 'file-saver'
-import create from 'zustand'
+import { create } from 'zustand'
+import * as THREE from 'three'
 import { createZip } from '../utils/createZip'
 import { parse } from 'gltfjsx'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
-import { KTX2Loader } from 'three/examples/jsm/loaders/KTX2Loader.js'
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { MeshoptDecoder } from 'three/examples/jsm/libs/meshopt_decoder.module.js'
-import prettier from 'prettier/standalone'
-import parserBabel from 'prettier/parser-babel'
-import parserTS from 'prettier/parser-typescript'
-import { REVISION } from 'three'
-import { WebGLRenderer } from 'three'
 
-let gltfLoader
-if (typeof window !== 'undefined') {
-  const THREE_PATH = `https://unpkg.com/three@0.${REVISION}.x`
-  // Use the same CDN as useGLTF for draco
-  const dracoloader = new DRACOLoader().setDecoderPath('https://www.gstatic.com/draco/versioned/decoders/1.5.5/')
-  const ktx2Loader = new KTX2Loader().setTranscoderPath(`${THREE_PATH}/examples/jsm/libs/basis/`)
-
-  gltfLoader = new GLTFLoader()
-    .setCrossOrigin('anonymous')
-    .setDRACOLoader(dracoloader)
-    .setKTX2Loader(ktx2Loader.detectSupport(new WebGLRenderer()))
-    .setMeshoptDecoder(MeshoptDecoder)
-}
+const loadingManager = new THREE.LoadingManager()
+const gltfLoader = new GLTFLoader(loadingManager)
+const dracoloader = new DRACOLoader()
+dracoloader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+gltfLoader.setDRACOLoader(dracoloader)
+gltfLoader.setMeshoptDecoder(MeshoptDecoder)
 
 const useStore = create((set, get) => ({
   fileName: '',
-  buffer: null,
+  buffers: null,
   textOriginalFile: '',
   animations: false,
   code: '',
   scene: null,
   createZip: async ({ sandboxCode }) => {
     await import('../utils/createZip').then((mod) => mod.createZip)
-    const { fileName, textOriginalFile, buffer } = get()
-    const blob = await createZip({ sandboxCode, fileName, textOriginalFile, buffer })
+    const { fileName } = get()
+    const blob = await createZip({ sandboxCode })
 
     saveAs(blob, `${fileName.split('.')[0]}.zip`)
   },
   generateScene: async (config) => {
-    const { fileName, buffer } = get()
-    const result = await new Promise((resolve, reject) => gltfLoader.parse(buffer, '', resolve, reject))
+    const { fileName, buffers } = get()
+    let result
+    if (buffers.length !== 1) {
+      result = await new Promise((resolve, reject) => {
+        const objectURLs = []
 
-    const code = parse(result, { ...config, fileName, printwidth: 100 })
+        // return objectUrl blob build from the buffer map
+        loadingManager.setURLModifier((path) => {
+          const buffer = buffers.get(path)
 
-    try {
-      const prettierConfig = config.types
-        ? { parser: 'typescript', plugins: [parserTS] }
-        : { parser: 'babel', plugins: [parserBabel] }
+          const url = URL.createObjectURL(new Blob([buffer]))
 
-      set({
-        code: prettier.format(code, prettierConfig),
+          objectURLs.push(url)
+
+          return url
+        })
+
+        const gltfBuffer = buffers.get(fileName)
+
+        const onLoad = (gltf) => {
+          // clean up
+          objectURLs.forEach(URL.revokeObjectURL)
+          loadingManager.setURLModifier = THREE.DefaultLoadingManager.setURLModifier
+
+          resolve(gltf)
+        }
+
+        gltfLoader.parse(gltfBuffer, fileName.slice(0, fileName.lastIndexOf('/') + 1), onLoad, reject)
       })
-    } catch {
-      set({
-        code: code,
-      })
+    } else {
+      result = await new Promise((resolve, reject) => gltfLoader.parse(buffers[0], '', resolve, reject))
     }
+    const code = await parse(result, { ...config, fileName, printwidth: 100 })
+
     set({
+      code,
       animations: !!result.animations.length,
     })
     if (!get().scene) set({ scene: result.scene })

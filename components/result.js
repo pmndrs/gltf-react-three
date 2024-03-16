@@ -10,15 +10,16 @@ import Code from './code'
 import useStore from '../utils/store'
 
 const Result = () => {
-  const { buffer, fileName, textOriginalFile, scene, code, createZip, generateScene, animations } = useStore()
+  const { buffers, fileName, scene, code, createZip, generateScene, animations } = useStore()
+
   const [config, setConfig] = useControls(() => ({
     types: { value: false, hint: 'Add Typescript definitions' },
     shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
     instance: { value: false, hint: ' Instance re-occuring geometry' },
-    instanceall: { label: 'instance all', value: false, hint: 'Instance all geometries (for cheaper re-use)' },    
+    instanceall: { label: 'instance all', value: false, hint: 'Instance all geometries (for cheaper re-use)' },
     verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
     keepnames: { value: false, label: 'keep names', hint: 'Keep original names' },
-    keepgroups: { value: false, label: 'keep groups', hint: 'Keep (empty) groups' },    
+    keepgroups: { value: false, label: 'keep groups', hint: 'Keep (empty) groups' },
     meta: { value: false, hint: 'Include metadata (as userData)' },
     precision: { value: 3, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
   }))
@@ -38,12 +39,11 @@ const Result = () => {
         options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       },
     },
-    { collapsed: true }
+    { collapsed: true },
   )
 
   const [loading, sandboxId, error, sandboxCode] = useSandbox({
-    fileName,
-    textOriginalFile,
+    buffers,
     code,
     config: { ...config, ...preview },
   })
@@ -62,7 +62,7 @@ const Result = () => {
 
   const download = useCallback(async () => {
     createZip({ sandboxCode })
-  }, [sandboxCode, fileName, textOriginalFile, buffer])
+  }, [sandboxCode])
 
   const exports = useMemo(() => {
     const temp = {}
@@ -71,14 +71,14 @@ const Result = () => {
         loading: 'Loading',
         success: () => `Successfully copied`,
         error: (err) => err.toString(),
-      })
+      }),
     )
     temp['download zip'] = button(() =>
       toast.promise(download(), {
         loading: 'Loading',
         success: () => `Ready for download`,
         error: (err) => err.toString(),
-      })
+      }),
     )
 
     if (!isGlb(fileName) && !error) {
