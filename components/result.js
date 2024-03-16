@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback } from 'react'
+import React, { useEffect, useMemo, useCallback, startTransition } from 'react'
 import copy from 'clipboard-copy'
 import saveAs from 'file-saver'
 import { Leva, useControls, button } from 'leva'
@@ -10,15 +10,19 @@ import Code from './code'
 import useStore from '../utils/store'
 
 const Result = () => {
-  const { buffers, fileName, scene, code, createZip, generateScene } = useStore()
+  const { buffers, fileName, scene, code, createZip, generateScene, animations } = useStore()
 
-  const config = useControls({
+  const [config, setConfig] = useControls(() => ({
     types: { value: false, hint: 'Add Typescript definitions' },
     shadows: { value: true, hint: 'Let meshes cast and receive shadows' },
+    instance: { value: false, hint: ' Instance re-occuring geometry' },
+    instanceall: { label: 'instance all', value: false, hint: 'Instance all geometries (for cheaper re-use)' },
     verbose: { value: false, hint: 'Verbose output w/ names and empty groups' },
+    keepnames: { value: false, label: 'keep names', hint: 'Keep original names' },
+    keepgroups: { value: false, label: 'keep groups', hint: 'Keep (empty) groups' },
     meta: { value: false, hint: 'Include metadata (as userData)' },
-    precision: { value: 2, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
-  })
+    precision: { value: 3, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
+  }))
 
   const preview = useControls(
     'preview',
@@ -35,7 +39,7 @@ const Result = () => {
         options: ['', 'sunset', 'dawn', 'night', 'warehouse', 'forest', 'apartment', 'studio', 'city', 'park', 'lobby'],
       },
     },
-    { collapsed: true }
+    { collapsed: true },
   )
 
   const [loading, sandboxId, error, sandboxCode] = useSandbox({
@@ -44,8 +48,16 @@ const Result = () => {
     config: { ...config, ...preview },
   })
 
-  useEffect(async () => {
-    generateScene(config)
+  useEffect(() => {
+    startTransition(() => {
+      setConfig({ verbose: animations })
+    })
+  }, [animations])
+
+  useEffect(() => {
+    startTransition(() => {
+      generateScene(config)
+    })
   }, [config])
 
   const download = useCallback(async () => {
@@ -59,14 +71,14 @@ const Result = () => {
         loading: 'Loading',
         success: () => `Successfully copied`,
         error: (err) => err.toString(),
-      })
+      }),
     )
     temp['download zip'] = button(() =>
       toast.promise(download(), {
         loading: 'Loading',
         success: () => `Ready for download`,
         error: (err) => err.toString(),
-      })
+      }),
     )
 
     if (!isGlb(fileName) && !error) {
@@ -95,13 +107,11 @@ const Result = () => {
   return (
     <div className="h-full w-screen">
       {!code && !scene ? (
-        <p className="text-4xl font-bold">Loading ...</p>
+        <p className="text-4xl font-bold w-screen h-screen flex justify-center items-center">Loading ...</p>
       ) : (
         <div className="grid grid-cols-5 h-full">
           {code && <Code>{code}</Code>}
-          <section className="h-full w-full col-span-2">
-            {scene && <Viewer scene={scene} {...config} {...preview} />}
-          </section>
+          <section className="h-full w-full col-span-2">{scene && <Viewer {...config} {...preview} />}</section>
         </div>
       )}
       <Leva hideTitleBar collapsed />

@@ -1,6 +1,6 @@
 module.exports = {
-  webpack: (config) => {
-    return Object.assign({}, config, {
+  webpack: (config, { isServer }) => {
+    const newConfig = Object.assign({}, config, {
       module: Object.assign({}, config.module, {
         rules: config.module.rules.concat([
           {
@@ -10,5 +10,10 @@ module.exports = {
         ]),
       }),
     })
+    if (!isServer) {
+      newConfig.resolve.fallback.fs = false
+    }
+
+    return newConfig
   },
 }

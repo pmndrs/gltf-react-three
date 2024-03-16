@@ -1,26 +1,8 @@
 import '../styles/globals.css'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import * as Fathom from 'fathom-client'
+import {TooltipProvider} from "@radix-ui/react-tooltip"
 
-function App({ Component, pageProps }) {
-  const router = useRouter()
-
-  useEffect(() => {
-    Fathom.load('DUAQBBSR')
-
-    function onRouteChangeComplete() {
-      Fathom.trackPageview()
-    }
-
-    router.events.on('routeChangeComplete', onRouteChangeComplete)
-
-    return () => {
-      router.events.off('routeChangeComplete', onRouteChangeComplete)
-    }
-  }, [])
-
-  return <Component {...pageProps} />
+function MyApp({ Component, pageProps }) {
+  return <TooltipProvider><Component {...pageProps} /></TooltipProvider>
 }
 
-export default App
+export default MyApp
