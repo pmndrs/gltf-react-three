@@ -1,8 +1,12 @@
 import '../styles/globals.css'
-import {TooltipProvider} from "@radix-ui/react-tooltip"
+import { TooltipProvider } from '@radix-ui/react-tooltip'
 
 function MyApp({ Component, pageProps }) {
-  return <TooltipProvider><Component {...pageProps} /></TooltipProvider>
+  return (
+    <TooltipProvider>
+      <Component {...pageProps} />
+    </TooltipProvider>
+  )
 }
 
 export default MyApp

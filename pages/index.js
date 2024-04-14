@@ -9,7 +9,7 @@ import FileDrop from '../components/fileDrop'
 import Footer from '../components/footer'
 import useStore from '../utils/store'
 import { isGlb, isGltf, isZip } from '../utils/isExtension'
-import loadFileAsArrayBuffer from '../utils/loadFileAsArrayBuffer'
+import { loadFileAsArrayBuffer, stringToArrayBuffer } from '../utils/buffers'
 
 const Loading = () => <p className="text-4xl font-bold">Loading ...</p>
 
@@ -52,10 +52,15 @@ export default function Home() {
     })
   }, [])
 
-  const useSuzanne = (e) => {
+  const useSuzanne = async (e) => {
     e.preventDefault()
     e.stopPropagation()
-    useStore.setState({ buffers: [suzanne], fileName: 'suzanne.gltf', textOriginalFile: suzanne })
+    const arr = await stringToArrayBuffer(suzanne)
+    useStore.setState({
+      buffers: new Map().set('suzanne.gltf', arr),
+      fileName: 'suzanne.gltf',
+      textOriginalFile: suzanne,
+    })
   }
 
   return (
