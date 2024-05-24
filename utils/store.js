@@ -23,7 +23,8 @@ const useStore = create((set, get) => ({
     saveAs(blob, `${fileName.split('.')[0]}.zip`)
   },
   generateScene: async (config) => {
-    const { fileName, buffers } = get()
+    const { fileName: rawFileName, buffers } = get()
+    const fileName = config.pathPrefix && config.pathPrefix !== '' ? `${config.pathPrefix}/${rawFileName}` : rawFileName
     let result
     if (buffers.size !== 1) {
       const loadingManager = new THREE.LoadingManager()

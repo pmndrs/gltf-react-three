@@ -22,6 +22,11 @@ const Result = () => {
     keepgroups: { value: false, label: 'keep groups', hint: 'Keep (empty) groups' },
     meta: { value: false, hint: 'Include metadata (as userData)' },
     precision: { value: 3, min: 1, max: 8, step: 1, hint: 'Number of fractional digits (default: 2)' },
+    pathPrefix: {
+      label: 'path prefix',
+      value: '',
+      hint: 'Prefix for all paths',
+    },
   }))
 
   const preview = useControls(
